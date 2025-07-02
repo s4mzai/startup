@@ -1,23 +1,115 @@
+"use client"
+
 import { Button } from "./ui/button";
 import Link from "next/link";
+import React, { useRef, useState, ReactNode } from "react";
+import { motion } from "framer-motion";
 
-
-const Navbar = () => {
-  return (
-    <div className="flex gap-3 w-11/12 items-center justify-between py-4 px-15 rounded-full bg-black text-white">
-        <h1 className="font-bold text-3xl">Startup</h1>
-        <div className="flex gap-10 font-bold text-xl">
-            <div className="hover:underline ">Startups</div>
-            <div className="hover:underline ">News</div>
-            <div className="hover:underline text-[#fabb20]">Info</div>
-        </div>
-        <Button asChild variant={"outline"} className="text-black bg-[#fabb20] hover:bg-[#fabb20] hover:text-neutral-800 border-0 rounded-full">
-            {/* TODO: change the url */}
-            <Link href="/">Login</Link>
-        </Button>
-        
-    </div>
-  )
+// Type definitions
+interface Position {
+  left: number;
+  width: number;
+  opacity: number;
 }
 
-export default Navbar
+interface TabProps {
+  children: ReactNode;
+  setPosition: (position: Position | ((prev: Position) => Position)) => void;
+}
+
+interface CursorProps {
+  position: Position;
+}
+
+export const Navbar: React.FC = () => {
+  return (
+    <div className="w-full">
+      <SlideTabs />
+    </div>
+  );
+};
+
+const SlideTabs: React.FC = () => {
+  const [position, setPosition] = useState<Position>({
+    left: 0,
+    width: 0,
+    opacity: 0,
+  });
+
+  return (
+    <div className="flex items-center px-10 lg:px-50">
+      {/* Logo - LEFT */}
+      <h1 className="text-black text-3xl font-extrabold">
+        Startup
+      </h1>
+      
+      {/* Navigation with ALL buttons - spans full width */}
+      <ul
+        onMouseLeave={() => {
+          setPosition((pv) => ({
+            ...pv,
+            opacity: 0,
+          }));
+        }}
+        className="w-full relative flex justify-between items-center ml-10"
+      >
+        {/* Empty space for balance */}
+        <div></div>
+        
+        {/* Center navigation buttons */}
+        <div className="flex gap-2 border-2 border-[#fabb20] p-1 hover:border-black rounded-full">
+          <Tab setPosition={setPosition}>Home</Tab>
+          <Tab setPosition={setPosition}>Startups</Tab>
+          <Tab setPosition={setPosition}>Features</Tab>
+          <Tab setPosition={setPosition}>Docs</Tab>
+        </div>
+        
+        {/* Login button - RIGHT */}
+        <Tab setPosition={setPosition}>
+          <Button asChild variant={"ghost"} className="border-0 hover:bg-black hover:text-[#fabb20] rounded-full uppercase text-md">
+            {/* TODO: change the url */}
+            <Link href="/">Login</Link>
+          </Button>
+        </Tab>
+        
+        <Cursor position={position} />
+      </ul>
+    </div>
+  );
+};
+
+const Tab: React.FC<TabProps> = ({ children, setPosition }) => {
+  const ref = useRef<HTMLLIElement>(null);
+
+  return (
+    <li
+      ref={ref}
+      onMouseEnter={() => {
+        if (!ref.current) return;
+        
+        const { width } = ref.current.getBoundingClientRect();
+        setPosition({
+          left: ref.current.offsetLeft,
+          width,
+          opacity: 1,
+        });
+      }}
+      className="relative z-10 block px-5 cursor-pointer py-1.5 text-xs uppercase text-black hover:text-[#fabb20] md:py-3 md:text-base"
+    >
+      {children}
+    </li>
+  );
+};
+
+const Cursor: React.FC<CursorProps> = ({ position }) => {
+  return (
+    <motion.li
+      animate={{
+        ...position,
+      }}
+      className="absolute z-0 h-7 rounded-full bg-black md:h-12"
+    />
+  );
+};
+
+export default Navbar;

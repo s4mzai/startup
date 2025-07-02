@@ -4,36 +4,29 @@ import { animate, stagger } from "motion"
 import { splitText } from "motion-plus"
 import { useEffect, useRef } from "react"
 
-export default function WavyText() {
+export default function SplitText() {
     const containerRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         document.fonts.ready.then(() => {
             if (!containerRef.current) return
 
-            const { chars } = splitText(
-                containerRef.current.querySelector(".wavy")!
-            )
+            // Hide the container until the fonts are loaded
             containerRef.current.style.visibility = "visible"
 
-            const staggerDelay = 0.15
+            const { words } = splitText(
+                containerRef.current.querySelector("h1")!
+            )
 
+            // Animate the words in the h1
             animate(
-                chars,
-                { y: [-20, 20] },
+                words,
+                { opacity: [0, 1], y: [10, 0] },
                 {
-                    repeat: Infinity,
-                    repeatType: "mirror",
-                    ease: "easeInOut",
+                    type: "spring",
                     duration: 2,
-                    delay: stagger(
-                        staggerDelay,
-                        // By setting this as a negative delay we can start
-                        // the animation part-way through, to ensure we don't
-                        // get an initial iteration where the characters look
-                        // like they're starting to animate one by one.
-                        { startDelay: -staggerDelay * chars.length }
-                    ),
+                    bounce: 0,
+                    delay: stagger(0.05),
                 }
             )
         })
@@ -42,7 +35,7 @@ export default function WavyText() {
     return (
         <div className="container" ref={containerRef}>
             <h1 className="h1">
-                <span className="underline text-green-900">Showcase</span> your <span className="wavy">startup,</span>
+                Launch Your Next Big Idea
             </h1>
             <Stylesheet />
         </div>
@@ -57,10 +50,12 @@ function Stylesheet() {
                 justify-content: center;
                 align-items: center;
                 width: 100%;
+                max-width: 420px;
+                text-align: center;
                 visibility: hidden;
             }
 
-            .split-char {
+            .split-word {
                 will-change: transform, opacity;
             }
         `}</style>
