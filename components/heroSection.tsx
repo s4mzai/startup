@@ -1,7 +1,6 @@
 "use client"
 
 import { Navbar } from "./navbar";
-import { SearchInput } from "./searchInput";
 import SplitText from "./animations/splitText";
 import AnimatedText from "./animations/fillText";
 import { PlaceholdersAndVanishInput } from "./animations/placeholderVanishInput";
