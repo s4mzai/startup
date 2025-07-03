@@ -120,3 +120,16 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+@font-face {
+  font-family: "Londrina Shadow";
+  src: url("/fonts/LondrinaShadow-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.londrina {
+  font-family: "Londrina Shadow", cursive;
+  font-weight: 400;
+}

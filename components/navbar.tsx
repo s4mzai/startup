@@ -4,7 +4,14 @@ import { Button } from "./ui/button";
 import Link from "next/link";
 import React, { useRef, useState, ReactNode } from "react";
 import { motion } from "framer-motion";
+import StaggeredDropDown from "./animations/hamburgerDropdown";
+// import { Poppins } from "next/font/google"
 
+// const poppins = Poppins({
+//   weight: "900", 
+//   subsets: ["latin"],
+//   display: "swap",
+// })
 // Type definitions
 interface Position {
   left: number;
@@ -37,9 +44,9 @@ const SlideTabs: React.FC = () => {
   });
 
   return (
-    <div className="flex items-center px-10 lg:px-50">
+    <div className="flex items-center px-10 lg:px-50 justify-between">
       {/* Logo - LEFT */}
-      <h1 className="text-black text-3xl font-extrabold">
+      <h1 className={` text-black text-3xl font-extrabold`}>
         Startup
       </h1>
       
@@ -51,11 +58,10 @@ const SlideTabs: React.FC = () => {
             opacity: 0,
           }));
         }}
-        className="w-full relative flex justify-between items-center ml-10"
+        className="w-full hidden  relative md:flex justify-between items-center ml-10"
       >
         {/* Empty space for balance */}
         <div></div>
-        
         {/* Center navigation buttons */}
         <div className="flex gap-2 border-2 border-[#fabb20] p-1 hover:border-black rounded-full">
           <Tab setPosition={setPosition}>Home</Tab>
@@ -74,6 +80,9 @@ const SlideTabs: React.FC = () => {
         
         <Cursor position={position} />
       </ul>
+      <div className="md:hidden ">
+        <StaggeredDropDown/>
+      </div>
     </div>
   );
 };
@@ -94,7 +103,7 @@ const Tab: React.FC<TabProps> = ({ children, setPosition }) => {
           opacity: 1,
         });
       }}
-      className="relative z-10 block px-5 cursor-pointer py-1.5 text-xs uppercase text-black hover:text-[#fabb20] md:py-3 md:text-base"
+      className="relative z-10 block px-5 font-medium cursor-pointer py-1.5 text-xs uppercase text-black hover:text-[#fabb20] md:py-3 md:text-base"
     >
       {children}
     </li>
