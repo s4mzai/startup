@@ -15,7 +15,7 @@ const AnimatedText = ({
 }: AnimatedTextProps) => {
   return (
     <motion.div
-      className={`londrina ${className} ${uppercase ? 'uppercase' : ''} relative cursor-pointer`}
+      className={`londrina ${className} ${uppercase ? 'uppercase' : ''} p-5 relative cursor-pointer`}
       initial="initial"
       whileHover="hover"
     >

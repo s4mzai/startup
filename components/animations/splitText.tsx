@@ -1,11 +1,8 @@
-// TODO: change this file from claude
-
 "use client"
-
 import { animate, stagger } from "motion"
 import { splitText } from "motion-plus"
 import { useEffect, useRef } from "react"
-
+import AnimatedText from "./fillText"
 
 interface SplitTextProps {
   normalText?: string
@@ -14,13 +11,15 @@ interface SplitTextProps {
   containerClassName?: string
 }
 
-export default function SplitText({ 
-  normalText = "Launch Your Next Big", 
+export default function SplitText({
+  normalText = "Launch Your Next Big",
   styledText = "Idea",
   className = "h1",
   containerClassName = "container"
 }: SplitTextProps) {
   const containerRef = useRef<HTMLDivElement>(null)
+  const normalTextRef = useRef<HTMLSpanElement>(null)
+  const styledTextRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
     document.fonts.ready.then(() => {
@@ -29,64 +28,62 @@ export default function SplitText({
       // Hide the container until the fonts are loaded
       containerRef.current.style.visibility = "visible"
 
-      const h1Element = containerRef.current.querySelector("h1")!
-      const { words } = splitText(h1Element)
+      const animations = []
 
-      // Find the styled text words and apply font class and hover animation to them
-      words.forEach((word) => {
-        const span = word as HTMLElement
-        const text = span.textContent?.trim()
+      // Animate normal text if it exists
+      if (normalTextRef.current) {
+        const { words } = splitText(normalTextRef.current)
+        animations.push(
+          animate(
+            words,
+            { opacity: [0, 1], y: [10, 0] },
+            {
+              type: "spring",
+              duration: 2,
+              bounce: 0,
+              delay: stagger(0.05),
+            }
+          )
+        )
+      }
+
+      // Animate styled text if it exists
+      if (styledTextRef.current) {
+        const styledWords = styledTextRef.current.querySelectorAll('.styled-word')
+        const styledDelay = normalTextRef.current ? 0.25 : 0 // Delay if normal text exists
         
-        // Check if this word is part of the styled text
-        if (styledText && text && styledText.includes(text)) {
-          span.classList.add("londrina".split(' ')[0])
-          // Also add inline styles as backup
-          span.style.fontFamily = 'Londrina Shadow, cursive'
-          span.style.fontWeight = '400'
-          
-          // Add hover animation styles
-          span.style.position = 'relative'
-          span.style.cursor = 'pointer'
-          span.style.background = 'linear-gradient(to right, white 0%, white 50%, black 50%, black 100%)'
-          span.style.backgroundSize = '200% 100%'
-          span.style.backgroundPosition = '100% 0'
-          span.style.webkitBackgroundClip = 'text'
-          span.style.webkitTextFillColor = 'transparent'
-          span.style.backgroundClip = 'text'
-          span.style.transition = 'background-position 0.6s ease-in-out'
-          
-          // Add hover event listeners
-          span.addEventListener('mouseenter', () => {
-            span.style.backgroundPosition = '0% 0'
-          })
-          
-          span.addEventListener('mouseleave', () => {
-            span.style.backgroundPosition = '100% 0'
-          })
-        }
-      })
-
-      // Animate the words in the h1
-      animate(
-        words,
-        { opacity: [0, 1], y: [10, 0] },
-        {
-          type: "spring",
-          duration: 2,
-          bounce: 0,
-          delay: stagger(0.05),
-        }
-      )
+        animations.push(
+          animate(
+            styledWords,
+            { opacity: [0, 1], y: [10, 0] },
+            {
+              type: "spring",
+              duration: 2,
+              bounce: 0,
+              delay: stagger(0.05, { startDelay: styledDelay }),
+            }
+          )
+        )
+      }
     })
-  }, [styledText])
+  }, [normalText, styledText])
 
   return (
     <div className={containerClassName} ref={containerRef}>
       <h1 className={className}>
-        {normalText && normalText + " "}
+        {normalText && (
+          <span ref={normalTextRef}>
+            {normalText + " "}
+          </span>
+        )}
         {styledText && (
-          <span className="londrina">
-            {styledText}
+          <span ref={styledTextRef} className="styled-text-wrapper">
+            {styledText.split(' ').map((word, index) => (
+              <span key={index} className="styled-word" style={{ opacity: 0 }}>
+                <AnimatedText text={word} className="text-inherit inline-block" />
+                {index < styledText.split(' ').length - 1 && ' '}
+              </span>
+            ))}
           </span>
         )}
       </h1>
@@ -110,6 +107,15 @@ function Stylesheet() {
 
       .split-word {
         will-change: transform, opacity;
+      }
+
+      .styled-text-wrapper {
+        position: relative;
+      }
+
+      .styled-word {
+        will-change: transform, opacity;
+        display: inline-block;
       }
     `}</style>
   )
