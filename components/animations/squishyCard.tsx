@@ -82,7 +82,9 @@ const Card: React.FC<StartupCardProps> = ({
           <span className="text-xs font-semibold text-neutral-700">
             {startupCategory}
           </span>
-          <Button className="text-xs px-3 py-1 rounded-full">Details</Button>
+          <Button className="rounded-2xl border border-black bg-white px-6 py-3 font-semibold uppercase text-black transition-all duration-300 cursor-pointer hover:bg-white md:hover:translate-x-[-4px] md:hover:translate-y-[-4px] md:hover:rounded-md md:hover:shadow-[4px_4px_0px_black]
+          md:active:translate-x-[0px] md:active:translate-y-[0px] md:active:rounded-2xl md:active:shadow-none max-md:active:scale-80">Details</Button>
+
         </div>
 
         {/* Meta + Button Row */}
