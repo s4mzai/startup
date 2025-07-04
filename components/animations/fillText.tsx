@@ -10,7 +10,7 @@ interface AnimatedTextProps {
 
 const AnimatedText = ({ 
   text, 
-  className = "text-7xl  sm:text-8xl", 
+  className = "text-7xl sm:text-8xl", 
   uppercase = false 
 }: AnimatedTextProps) => {
   return (

@@ -39,10 +39,9 @@ const HeroSection = () => {
         <p className="text-sm mt-5 md:mt-0 hover:bg-amber-100 text-amber-800 bg-amber-300 rounded-lg px-2 cursor-default">
           🚀 Launch Your Dream Startup
         </p>
-        <div className="flex flex-col md:flex-row w-full items-center justify-center font-extrabold text-5xl leading-tight">
+        <div className="flex flex-col md:flex-row w-ful items-center justify-center font-extrabold text-5xl leading-tight">
           <AnimatedText text="founders" uppercase />
           <SplitText />
-          {/* TODO: place image here instead of second split text */}
         </div>
         <p className="font-bold text-center px-5 hidden sm:block">
           Join thousands of entrepreneurs who've turned their vision into reality. 
