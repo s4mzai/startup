@@ -168,13 +168,13 @@ const StartupSection = () => {
         }}
         viewport={{ once: true, amount: 0.7 }}
 
-        className='px-10 font-extrabold text-center flex flex-col gap-5'>
+        className='px-10 font-extrabold text-center items-center flex flex-col gap-5'>
           <h2 className='text-5xl'>All Startups</h2>
           <p className='font-light text-xl'>
             Discover innovative startups that are changing the world
           </p>
         </motion.div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-items-center">
+        <div className="flex flex-wrap justify-center gap-6">
           {displayedCards.map((card, index) => (
             <ExpandableCard key={card.startupId + index} {...card} />
           ))}

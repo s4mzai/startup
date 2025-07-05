@@ -42,8 +42,8 @@ const HeroSection = () => {
         <p className="text-sm mt-5 md:mt-0 hover:bg-amber-100 text-amber-800 bg-amber-300 rounded-lg px-2 cursor-default">
           🚀 Launch Your Dream Startup
         </p>
-        <div className="flex flex-col md:flex-row w-ful items-center justify-center font-extrabold text-5xl leading-tight mx-10 gap-3 md:gap-10">
-          <AnimatedText text="founders" uppercase className="text-7xl sm:text-8xl"/>
+        <div className="flex flex-col md:flex-row w-ful items-center justify-center font-extrabold leading-tight mx-10 gap-3 md:gap-10">
+          <AnimatedText text="founders" uppercase className=" text-6xl sm:text-8xl"/>
           {/* <SplitText /> */}
           <motion.h1
           initial={{
@@ -61,7 +61,7 @@ const HeroSection = () => {
             },
           }}
           viewport={{ once: true, amount: 0.7 }}
-          className="text-wrap w-90 text-center uppercase">Launch Your Next Big <span className="underline">Idea</span>
+          className="text-wrap sm:w-90 text-center  text-4xl sm:text-5xl font-lg uppercase ">Launch Your Next Big <span className="underline">Idea</span>
           </motion.h1>
         </div>
         <p className="font-bold text-center px-5 hidden sm:block">
