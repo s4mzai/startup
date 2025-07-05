@@ -10,7 +10,7 @@ export default function Home() {
       {/* STARTUPS SECTION HERE */}
       <StartupSection/>
       {/* FOOTER HERE */}
-      <FooterSection/>  
+      <FooterSection/>
     </>
   );
 }
