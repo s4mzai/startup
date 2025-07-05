@@ -10,13 +10,27 @@ interface AnimatedTextProps {
 
 const AnimatedText = ({ 
   text, 
-  className = "text-7xl sm:text-8xl", 
+  className, 
   uppercase = false 
 }: AnimatedTextProps) => {
   return (
     <motion.div
-      className={`londrina ${className} ${uppercase ? 'uppercase' : ''} p-5 relative cursor-pointer`}
-      initial="initial"
+    initial={{
+          y: 10,
+          opacity: 0,
+          }}
+          whileInView={{
+            y: 0,
+            opacity: 1,
+            transition: {
+              type: "tween",
+              duration: 1.2,
+              delay: 0.2,
+              ease: [0.25, 0.25, 0.25, 0.75],
+            },
+          }}
+          viewport={{ once: true, amount: 0.7 }}
+      className={`londrina ${className} ${uppercase ? 'uppercase' : ''} relative cursor-pointer`}
       whileHover="hover"
     >
       <motion.p

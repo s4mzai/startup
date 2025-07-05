@@ -36,7 +36,23 @@ const ExpandableCard: React.FC<StartupCardProps> = ({
         whileTap={{ scale: 0.99 }}
         whileHover={{ scale: 1.05 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className="rounded-2xl sm:w-73 md:w-90 lg:w-80 xl:w-76 px-6 py-5 cursor-pointer flex flex-col border-2 border-black bg-[#fabb20] border-dashed shadow-md"
+        initial={{
+          y: 40,
+          opacity: 0,
+        }}
+        whileInView={{
+          y: 0,
+          opacity: 1,
+          transition: {
+            type: "tween",
+            duration: 1.2,
+            delay: 0.2,
+            ease: [0.25, 0.25, 0.25, 0.75],
+          },
+        }}
+        viewport={{ once: true, amount: 0.7 }}
+
+        className="rounded-2xl sm:w-73 md:w-90 lg:w-80 xl:w-76 px-6 py-5 cursor-pointer flex flex-col border-2 border-black bg-[#fabb20] border-dashed shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"
       >
         {/* Top section - Always visible on mobile/tablet, animated on desktop */}
         {/* <div className="h-6 mb-2 flex items-center justify-between xl:hidden">
