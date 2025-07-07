@@ -43,6 +43,7 @@ const HeroSection = () => {
         </p>
         <div className="flex flex-col md:flex-row w-ful items-center justify-center font-extrabold leading-tight mx-10 gap-3 md:gap-10">
           <AnimatedText text="founders" uppercase className=" text-6xl sm:text-8xl"/>
+          
           {/* <SplitText /> */}
           <motion.h1
           initial={{

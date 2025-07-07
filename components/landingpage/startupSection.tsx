@@ -12,7 +12,7 @@ const StartupSection = () => {
   const cardValues = [
     {
       authorName: "Samar",
-      authorImage: "/cat.png",
+      authorImage: "/profile.jpg",
       authorId: "author1",
       date: "4 July 2025",
       startupTitle: "Robots",
@@ -24,7 +24,7 @@ const StartupSection = () => {
     },
     {
       authorName: "Samar",
-      authorImage: "/cat.png",
+      authorImage: "/profile.jpg",
       authorId: "author1",
       date: "4 July 2025",
       startupTitle: "Robots",
@@ -36,7 +36,7 @@ const StartupSection = () => {
     },
     {
       authorName: "Samar",
-      authorImage: "/cat.png",
+      authorImage: "/profile.jpg",
       authorId: "author1",
       date: "4 July 2025",
       startupTitle: "Robots",
@@ -48,7 +48,7 @@ const StartupSection = () => {
     },
     {
       authorName: "Samar",
-      authorImage: "/cat.png",
+      authorImage: "/profile.jpg",
       authorId: "author1",
       date: "4 July 2025",
       startupTitle: "Robots",
@@ -60,7 +60,7 @@ const StartupSection = () => {
     },
     {
       authorName: "Samar",
-      authorImage: "/cat.png",
+      authorImage: "/profile.jpg",
       authorId: "author1",
       date: "4 July 2025",
       startupTitle: "Robots",
@@ -72,7 +72,7 @@ const StartupSection = () => {
     },
     {
       authorName: "Samar",
-      authorImage: "/cat.png",
+      authorImage: "/profile.jpg",
       authorId: "author1",
       date: "4 July 2025",
       startupTitle: "Robots",
@@ -84,7 +84,7 @@ const StartupSection = () => {
     },
     {
       authorName: "Samar",
-      authorImage: "/cat.png",
+      authorImage: "/profile.jpg",
       authorId: "author1",
       date: "4 July 2025",
       startupTitle: "Robots",
@@ -96,7 +96,7 @@ const StartupSection = () => {
     },
     {
       authorName: "Samar",
-      authorImage: "/cat.png",
+      authorImage: "/profile.jpg",
       authorId: "author1",
       date: "4 July 2025",
       startupTitle: "Robots",
@@ -108,7 +108,7 @@ const StartupSection = () => {
     },
     {
       authorName: "Samar",
-      authorImage: "/cat.png",
+      authorImage: "/profile.jpg",
       authorId: "author1",
       date: "4 July 2025",
       startupTitle: "Robots",
@@ -120,7 +120,7 @@ const StartupSection = () => {
     },
     {
       authorName: "Samar",
-      authorImage: "/cat.png",
+      authorImage: "/profile.jpg",
       authorId: "author1",
       date: "4 July 2025",
       startupTitle: "Robots",
@@ -132,7 +132,7 @@ const StartupSection = () => {
     },
     {
       authorName: "Samar",
-      authorImage: "/cat.png",
+      authorImage: "/profile.jpg",
       authorId: "author1",
       date: "4 July 2025",
       startupTitle: "Robots",

@@ -1,4 +1,4 @@
-"This is the homepage input startup input"
+// "This is the homepage input startup input"
 
 "use client";
 

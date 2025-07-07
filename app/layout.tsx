@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
-// import { Inter } from "next/font/google";
 import "./globals.css";
+import { SessionProvider } from 'next-auth/react'
+import { Toaster } from "@/components/ui/sonner"
 
-// const inter = Inter({
-//   subsets: ['latin'],
-//   weight: [ "400", "500", "600", "700", "800", "900" ]
-// })
 
 export const metadata: Metadata = {
   title: "Startup",
@@ -20,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased`}>
-        {children}
+        <SessionProvider>
+          {children}
+          <Toaster />
+        </SessionProvider>
       </body>
     </html>
   );
