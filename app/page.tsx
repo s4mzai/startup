@@ -1,6 +1,6 @@
-import FooterSection from "@/components/footerSection";
-import HeroSection from "@/components/heroSection";
-import StartupSection from "@/components/startupSection";
+import FooterSection from "@/components/landingpage/footerSection";
+import HeroSection from "@/components/landingpage/heroSection";
+import StartupSection from "@/components/landingpage/startupSection";
 
 export default function Home() {
   return (

@@ -52,18 +52,18 @@ const SlideTabs: React.FC = () => {
       
       {/* Navigation with ALL buttons - spans full width */}
       <ul
-        onMouseLeave={() => {
-          setPosition((pv) => ({
-            ...pv,
-            opacity: 0,
-          }));
-        }}
         className="w-full hidden  relative md:flex justify-between items-center ml-10"
       >
         {/* Empty space for balance */}
         <div></div>
         {/* Center navigation buttons */}
-        <div className="flex gap-2 border-2 border-[#fabb20] p-1 hover:border-black rounded-full">
+        <div
+        onMouseLeave={() => {
+          setPosition((pv) => ({
+            ...pv,
+            opacity: 0,
+          }));
+        }} className="flex gap-2 border-2 border-[#fabb20] p-1 hover:border-black rounded-full">
           <Tab setPosition={setPosition}>Home</Tab>
           <Tab setPosition={setPosition}>Startups</Tab>
           <Tab setPosition={setPosition}>Features</Tab>
@@ -71,12 +71,14 @@ const SlideTabs: React.FC = () => {
         </div>
         
         {/* Login button - RIGHT */}
-        <Tab setPosition={setPosition}>
-          <Button asChild variant={"ghost"} className="border-0 hover:bg-black hover:text-[#fabb20] rounded-full uppercase text-md">
-            {/* TODO: change the url */}
-            <Link href="/">Login</Link>
-          </Button>
-        </Tab>
+        <Link onMouseLeave={()=>{
+          setPosition((pv)=>({
+            ...pv,
+            opacity:0,
+          }))
+        }} href={"/login"}>
+          <Tab setPosition={setPosition}>Login</Tab>
+        </Link>
         
         <Cursor position={position} />
       </ul>

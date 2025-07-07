@@ -1,3 +1,5 @@
+// This is the Home page fill text animation
+
 "use client"
 
 import { motion } from "framer-motion";

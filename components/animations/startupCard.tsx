@@ -1,3 +1,6 @@
+// This is the Startup Card
+
+
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -16,7 +19,7 @@ type StartupCardProps = {
   views: number;
 };
 
-const ExpandableCard: React.FC<StartupCardProps> = ({
+const StartupCard: React.FC<StartupCardProps> = ({
   authorName,
   authorImage,
   date,
@@ -92,4 +95,4 @@ const ExpandableCard: React.FC<StartupCardProps> = ({
   );
 };
 
-export default ExpandableCard;
+export default StartupCard;

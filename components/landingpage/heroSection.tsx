@@ -1,10 +1,9 @@
 "use client"
 
-import { Navbar } from "./navbar";
-import SplitText from "./animations/splitText";
-import AnimatedText from "./animations/fillText";
-import { PlaceholdersAndVanishInput } from "./animations/placeholderVanishInput";
-import { Button } from "./ui/button";
+import { Navbar } from "@/components/navbar";
+import AnimatedText from "@/components/animations/fillText";
+import { PlaceholdersAndVanishInput } from "@/components/animations/placeholderVanishInput";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion"
 
 

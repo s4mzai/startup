@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
-import ExpandableCard from './animations/expandableCard';
-import { Button } from './ui/button';
+import StartupCard from '../animations/startupCard';
+import { Button } from '../ui/button';
 import Link from 'next/link';
 import { motion } from "framer-motion" 
 import { BsArrowRightShort } from "react-icons/bs";
@@ -176,7 +176,7 @@ const StartupSection = () => {
         </motion.div>
         <div className="flex flex-wrap justify-center gap-6">
           {displayedCards.map((card, index) => (
-            <ExpandableCard key={card.startupId + index} {...card} />
+            <StartupCard key={card.startupId + index} {...card} />
           ))}
         </div>
         <div className='w-full mt-7 flex justify-center'>

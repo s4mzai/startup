@@ -1,3 +1,5 @@
+"This is the homepage input startup input"
+
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
