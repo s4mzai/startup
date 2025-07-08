@@ -1,11 +1,9 @@
 "use client"
 import { signUpWithCredentials } from "@/actions/signUpAction"
-import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import {useTransition} from "react"
 
 const CredentialsSignUp = () => {
-  const router = useRouter()
   const [isPending, startTransition] = useTransition()
   
   const handleSubmit = async (formData: FormData) => {
@@ -16,7 +14,7 @@ const CredentialsSignUp = () => {
         toast.error(result.error)
       } else if (result?.success === true) {
         toast.success(result.message)
-        router.push("/")
+        window.location.href = "/";
       }
     })
   }

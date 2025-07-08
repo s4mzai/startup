@@ -14,6 +14,8 @@ const SignOutButton: React.FC<SignOutButtonProps> = ({ children }) => {
     setLoading(true);
     await signOut();
     setLoading(false);
+    window.location.href = "/";
+
   };
 
   return (

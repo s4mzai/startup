@@ -10,7 +10,7 @@ const GithubSigninButton = () => {
             await signIn("github")
         }}
         >
-        <button type="submit" className='border-2 border-black p-2 rounded-full'>Signin with GitHub</button>
+        <button type="submit" className='border-2 border-black bg-white p-2 rounded-lg'>Signin with GitHub</button>
         </form>
     </>
   )
