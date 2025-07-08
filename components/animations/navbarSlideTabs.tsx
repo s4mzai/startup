@@ -50,11 +50,13 @@ export const SlideTabs: React.FC = () => {
             ...pv,
             opacity: 0,
         }));
-        }} className="flex gap-2 border-2 border-[#fabb20] p-1 hover:border-black rounded-full">
+        }} className="flex gap-2 border-2 border-[#fabb20] p-1  hover:border-black rounded-full">
           <Tab setPosition={setPosition}>Home</Tab>
           <Tab setPosition={setPosition}>Startups</Tab>
           <Tab setPosition={setPosition}>Features</Tab>
-          <Tab setPosition={setPosition}>Docs</Tab>
+          {session &&(
+            <Link href={'/create'} className="rounded-full"><Tab setPosition={setPosition} >Create</Tab></Link>
+          )}
         </div>
         <div className="flex items-center justify-center gap-3">
           {session?<div onMouseLeave={()=>{
