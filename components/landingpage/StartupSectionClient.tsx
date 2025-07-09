@@ -1,4 +1,3 @@
-// components/sections/StartupSectionClient.tsx (Client Component)
 "use client"
 
 import React from 'react'
@@ -8,7 +7,6 @@ import Link from 'next/link';
 import { motion } from "framer-motion"
 import { BsArrowRightShort } from "react-icons/bs";
 
-// Define the proper types based on your Prisma schema
 type StartupWithUser = {
   id: string;
   title: string;
@@ -58,13 +56,18 @@ const StartupSectionClient: React.FC<StartupSectionClientProps> = ({
             Discover innovative startups that are changing the world
           </p>
         </motion.div>
-        {displayedCards.length > 0?(
-        <div className="flex flex-wrap justify-center gap-6">
-          {displayedCards.map((card, index) => (
-            <StartupCard key={card.id + index} {...card} />
-          ))}
-        </div>
-        ):(<div className='w-full h-90 flex items-center justify-center font-bold text-5xl'>Nothings Here Yet</div>)}
+
+        {displayedCards.length > 0 ? (
+          <div className="flex flex-wrap justify-center gap-6 mt-8">
+            {displayedCards.map((card, index) => (
+              <div key={card.id + index} className="w-full max-w-sm sm:w-auto">
+                <StartupCard {...card} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className='w-full h-90 flex items-center justify-center font-bold text-5xl'>Nothing's Here Yet</div>
+        )}
 
         <div className='w-full mt-7 flex justify-center'>
           {hasMoreItems && (

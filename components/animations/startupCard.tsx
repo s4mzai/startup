@@ -1,5 +1,3 @@
-// components/animations/StartupCard.tsx
-
 "use client";
 
 import { useState } from "react";
@@ -19,6 +17,7 @@ type StartupCardProps = {
   user?: {
     name?: string | null;
     image?: string | null;
+    id?: string | null;
   };
 };
 
@@ -33,14 +32,19 @@ const StartupCard: React.FC<StartupCardProps> = ({
 }) => {
   const [hovered, setHovered] = useState(false);
 
+  const shortDescription =
+    description.length > 70 ? description.slice(0, 70) + "..." : description;
+
   return (
-    <div className="flex justify-center items-center py-5">
+    <motion.div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="flex justify-center items-center py-5 px-3"
+    >
       <motion.div
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        whileTap={{ scale: 0.99 }}
-        whileHover={{ scale: 1.05 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
         initial={{ y: 40, opacity: 0 }}
         whileInView={{
           y: 0,
@@ -53,20 +57,47 @@ const StartupCard: React.FC<StartupCardProps> = ({
           },
         }}
         viewport={{ once: true, amount: 0.7 }}
-        className="rounded-2xl sm:w-73 md:w-90 lg:w-80 xl:w-76 px-6 py-5 cursor-pointer flex flex-col border-2 border-black bg-[#fabb20] border-dashed shadow-[4.0px_8.0px_8.0px_rgba(0,0,0,0.38)]"
+        className="w-[320px] h-[420px] sm:w-[300px] sm:h-[400px] rounded-2xl px-5 py-6 flex flex-col cursor-pointer border border-black border-dashed bg-[#fabb20] shadow-[4px_8px_8px_rgba(0,0,0,0.38)]"
       >
-        {/* Author Info */}
+        {/* Author - Mobile always visible, desktop on hover */}
+        <div className="items-center justify-between mb-4 flex md:hidden">
+          <div className="font-bold text-black text-lg">{user?.name}</div>
+          {user?.image && (
+            <div className="w-9 h-9 rounded-full overflow-hidden">
+              <Image
+                src={user.image}
+                alt="avatar"
+                width={36}
+                height={36}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
+        </div>
+
         <motion.div
-        initial={false}
-        animate={{ opacity: hovered ? 1 : 0, y: hovered ? 10:0 }}
-        transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="flex items-center justify-between mb-5">
-          <div className=" font-bold text-black justify-center items-center text-xl hidden xl:flex">
-            <div>{user?.name}</div>
+          initial={false}
+          animate={{
+            opacity: hovered ? 1 : 0,
+            y: hovered ? 0 : -10,
+          }}
+          transition={{ duration: 0.3 }}
+          className="hidden md:flex items-center justify-between mb-4"
+        >
+          <div className="font-bold text-black text-lg hidden xl:flex">
+            {user?.name}
           </div>
-          <div className="w-9 h-9 rounded-full overflow-hidden">
-            <Image src={`${user?.image}`} alt="avatar" width={48} height={48} className="w-full h-full object-cover"/>
-          </div>
+          {user?.image && (
+            <div className="w-9 h-9 rounded-full overflow-hidden">
+              <Image
+                src={user.image}
+                alt="avatar"
+                width={36}
+                height={36}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
         </motion.div>
 
         {/* Image */}
@@ -74,25 +105,25 @@ const StartupCard: React.FC<StartupCardProps> = ({
           <Image
             src={image}
             alt="Startup image"
-            width={200}
+            width={300}
             height={200}
-            className="rounded-lg w-full"
+            className="rounded-lg object-cover w-full h-[150px]"
           />
         </div>
 
-        {/* Main content */}
-        <h2 className="text-3xl font-bold text-black whitespace-nowrap mb-2 londrina">
+        {/* Title */}
+        <h2 className="text-xl font-bold text-black mb-2 break-words">
           {title}
         </h2>
-        <p className="text-sm text-muted-foreground leading-snug mb-2">
-          {description.length > 60
-            ? `${description.slice(0, 60)}...`
-            : description}
+
+        {/* Description */}
+        <p className="text-sm text-muted-foreground mb-2 break-words leading-snug">
+          {shortDescription}
         </p>
 
-        {/* Date + Views */}
-        <div className="flex justify-between items-center text-sm text-muted-foreground mt-5">
-          <div className="hover:bg-amber-100 bg-amber-300 text-amber-800 px-3 py-1 rounded-full">
+        {/* Footer */}
+        <div className="flex justify-between items-center text-sm text-muted-foreground mt-auto pt-2">
+          <div className="bg-amber-300 text-amber-800 px-3 py-1 rounded-full">
             {createdAt.toLocaleDateString("en-IN", {
               day: "numeric",
               month: "short",
@@ -102,22 +133,24 @@ const StartupCard: React.FC<StartupCardProps> = ({
           <div>{views} views</div>
         </div>
 
-        {/* Category (Mobile) */}
+        {/* Category */}
         <div className="h-6 mt-3 flex pl-3 justify-center items-center text-sm text-muted-foreground xl:hidden">
           <div>{category}</div>
         </div>
 
-        {/* Category (Desktop hover) */}
         <motion.div
           initial={false}
-          animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 10 }}
-          transition={{ duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+          animate={{
+            opacity: hovered ? 1 : 0,
+            y: hovered ? 0 : 10,
+          }}
+          transition={{ duration: 0.3 }}
           className="h-6 justify-center items-center text-sm text-muted-foreground hidden xl:flex"
         >
           <div>{category}</div>
         </motion.div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };
 
