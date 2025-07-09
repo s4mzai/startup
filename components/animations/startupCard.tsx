@@ -19,6 +19,7 @@ type StartupCardProps = {
     image?: string | null;
     id?: string | null;
   };
+  isProfile?: boolean
 };
 
 const StartupCard: React.FC<StartupCardProps> = ({
@@ -29,11 +30,11 @@ const StartupCard: React.FC<StartupCardProps> = ({
   description,
   category,
   user,
+  isProfile = false,
 }) => {
   const [hovered, setHovered] = useState(false);
 
-  const shortDescription =
-    description.length > 70 ? description.slice(0, 70) + "..." : description;
+  const shortDescription = description.length > 70 ? description.slice(0, 70) + "..." : description;
 
   return (
     <motion.div
@@ -60,45 +61,49 @@ const StartupCard: React.FC<StartupCardProps> = ({
         className="w-[320px] h-[420px] sm:w-[300px] sm:h-[400px] rounded-2xl px-5 py-6 flex flex-col cursor-pointer border border-black border-dashed bg-[#fabb20] shadow-[4px_8px_8px_rgba(0,0,0,0.38)]"
       >
         {/* Author - Mobile always visible, desktop on hover */}
-        <div className="items-center justify-between mb-4 flex md:hidden">
-          <div className="font-bold text-black text-lg">{user?.name}</div>
-          {user?.image && (
-            <div className="w-9 h-9 rounded-full overflow-hidden">
-              <Image
-                src={user.image}
-                alt="avatar"
-                width={36}
-                height={36}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          )}
-        </div>
-
-        <motion.div
-          initial={false}
-          animate={{
-            opacity: hovered ? 1 : 0,
-            y: hovered ? 0 : -10,
-          }}
-          transition={{ duration: 0.3 }}
-          className="hidden md:flex items-center justify-between mb-4"
-        >
-          <div className="font-bold text-black text-lg hidden xl:flex">
-            {user?.name}
+        {!isProfile &&(
+          <div className="items-center justify-between mb-4 flex md:hidden">
+            <div className="font-bold text-black text-lg">{user?.name}</div>
+            {user?.image && (
+              <div className="w-9 h-9 rounded-full overflow-hidden">
+                <Image
+                  src={user.image}
+                  alt="avatar"
+                  width={36}
+                  height={36}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
           </div>
-          {user?.image && (
-            <div className="w-9 h-9 rounded-full overflow-hidden">
-              <Image
-                src={user.image}
-                alt="avatar"
-                width={36}
-                height={36}
-                className="w-full h-full object-cover"
-              />
+        )}
+
+        {!isProfile &&(
+          <motion.div
+            initial={false}
+            animate={{
+              opacity: hovered ? 1 : 0,
+              y: hovered ? 0 : -10,
+            }}
+            transition={{ duration: 0.3 }}
+            className="hidden md:flex items-center justify-between mb-4"
+          >
+            <div className="font-bold text-black text-lg hidden xl:flex">
+              {user?.name}
             </div>
-          )}
-        </motion.div>
+            {user?.image && (
+              <div className="w-9 h-9 rounded-full overflow-hidden">
+                <Image
+                  src={user.image}
+                  alt="avatar"
+                  width={36}
+                  height={36}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            )}
+          </motion.div>
+        )}  
 
         {/* Image */}
         <div className="flex justify-center mb-3">

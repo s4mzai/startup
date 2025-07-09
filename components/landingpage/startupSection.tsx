@@ -1,9 +1,11 @@
-// components/sections/StartupSection.tsx (Server Component - NO "use client")
-import React from 'react'
+// components/sections/StartupSection.tsx
+import React from 'react';
 import { prisma } from '@/lib/prisma';
 import StartupSectionClient from '@/components/landingpage/StartupSectionClient';
 
-const StartupSection = async () => {
+// StartupSection.tsx
+const StartupSection = async ({ userId }: { userId?: string }) => {
+  console.log(userId)
   const cardValues = await prisma.startup.findMany({
     include: {
       user: {
@@ -15,10 +17,15 @@ const StartupSection = async () => {
           image: true,
           bio: true,
           createdAt: true,
-          updatedAt:true,
-        }
-      }
+          updatedAt: true,
+        },
+      },
     },
+    where: userId
+      ? {
+          userId: userId, // filter directly by userId
+        }
+      : {},
     orderBy: {
       createdAt: 'desc',
     },
@@ -28,9 +35,10 @@ const StartupSection = async () => {
   const hasMoreItems = cardValues.length > 8;
 
   return (
-    <StartupSectionClient 
+    <StartupSectionClient
       displayedCards={displayedCards}
       hasMoreItems={hasMoreItems}
+      isProfile={!!userId}
     />
   );
 };

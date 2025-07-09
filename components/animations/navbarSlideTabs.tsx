@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import SignOutButton from "../auth/signOutButton";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface Position {
   left: number;
@@ -24,6 +25,7 @@ interface CursorProps {
 
 
 export const SlideTabs: React.FC = () => {
+  const router = useRouter()
   const { data: session,status } = useSession()
   const [position, setPosition] = useState<Position>({
     left: 0,
@@ -75,7 +77,7 @@ export const SlideTabs: React.FC = () => {
           }
           <Cursor position={position} />
           {session &&(
-            <div className="w-10 h-10 rounded-full overflow-hidden">
+            <div onClick={()=>router.push("/profile")} className="cursor-pointer w-10 h-10 rounded-full overflow-hidden">
               <Image src={`${session?.user?.image}`} 
               alt="avatar"
               width={48}
