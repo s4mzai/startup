@@ -5,7 +5,6 @@ import StartupSectionClient from '@/components/landingpage/StartupSectionClient'
 
 // StartupSection.tsx
 const StartupSection = async ({ userId }: { userId?: string }) => {
-  console.log(userId)
   const cardValues = await prisma.startup.findMany({
     include: {
       user: {

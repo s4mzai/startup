@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 type StartupCardProps = {
   views: number;
@@ -23,6 +24,7 @@ type StartupCardProps = {
 };
 
 const StartupCard: React.FC<StartupCardProps> = ({
+  id,
   views,
   title,
   image,
@@ -32,6 +34,7 @@ const StartupCard: React.FC<StartupCardProps> = ({
   user,
   isProfile = false,
 }) => {
+  const router = useRouter()
   const [hovered, setHovered] = useState(false);
 
   const shortDescription = description.length > 70 ? description.slice(0, 70) + "..." : description;
@@ -47,6 +50,7 @@ const StartupCard: React.FC<StartupCardProps> = ({
     >
       <motion.div
         initial={{ y: 40, opacity: 0 }}
+        onClick={()=>{router.push(`/startups/${id}`)}}
         whileInView={{
           y: 0,
           opacity: 1,
