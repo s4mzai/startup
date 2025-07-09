@@ -25,7 +25,6 @@ interface CursorProps {
 
 export const SlideTabs: React.FC = () => {
   const { data: session,status } = useSession()
-
   const [position, setPosition] = useState<Position>({
     left: 0,
     width: 0,

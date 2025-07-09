@@ -16,7 +16,7 @@ export async function signUpWithCredentials(formData: FormData) {
         const { name, email, password } = signUpSchema.parse(data) as SignUpSchemaType
 
         const existingUser = await prisma.user.findUnique({
-            where:{email}   
+            where:{email:email.toLowerCase()}   
         })
         if(existingUser) {
             return { 
@@ -38,7 +38,7 @@ export async function signUpWithCredentials(formData: FormData) {
         })  
         
         await signIn("credentials", {
-            email,
+            email:email.toLowerCase(),
             password,
             redirect: false,
         })

@@ -1,9 +1,11 @@
 "use client"
- 
+//  TODO :ADD PITCH FIELD LATER
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
- 
+import { startupSchema,startupSchemaType } from "@/lib/startupSchema"
+import {useTransition} from "react"
+
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -16,42 +18,36 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
-const formSchema = z.object({
-  title: z.string().min(1, {
-    message: "Title is must.",
-  }),
-  description: z.string().min(1, {
-    message: "description is must",
-  }),
-  category: z.string().min(1, {
-    message: "category is must.",
-  }),
-  imageLink: z.string().min(1, {
-    message: "imageLink is must.",
-  }),
-  pitch: z.string().min(1, {
-    message: "pitch is must.",
-  }),
-})
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Textarea } from "./ui/textarea"
+import { toast } from "sonner"
+import { createStartup } from "@/actions/createStartup"
 
 const CreateStartupForm = () => {
+  const [isPending, startTransition] = useTransition()
 
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+    const form = useForm<z.infer<typeof startupSchema>>({
+        resolver: zodResolver(startupSchema),
         defaultValues:{
             title: "",
             description: "",
             category: "",
             imageLink: "/startupImage.jpg",
-            pitch: "",
+            // pitch: "",
         }
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>){
-        console.log(values)
+    function onSubmit(values: z.infer<typeof startupSchema>){
+        startTransition(async () => {
+            const result = await createStartup(values)
+            if (result?.success === false) {
+                toast.error(result.error)
+            } else if (result?.success === true) {
+                toast.success(result.message)
+                window.location.href = "/";
+            }
+        })
     }
 
     return (
@@ -65,7 +61,7 @@ const CreateStartupForm = () => {
                 <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                    <Input placeholder="This Tech Startup lets you do stuffs" {...field} className="border-2 border-black rounded-full px-5 py-6 bg-white"/>
+                    <Input disabled={isPending} placeholder="This Tech Startup lets you do stuffs" {...field} className="border-2 border-black rounded-full px-5 py-6 bg-white"/>
                 </FormControl>
                 <FormDescription>
                     {/* This is your public display name. */}
@@ -82,7 +78,7 @@ const CreateStartupForm = () => {
                 <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                    <Textarea placeholder="Short description of your startup idea" {...field} className="resize-none border-2 border-black  rounded-lg px-5 bg-white h-10"/>
+                    <Textarea disabled={isPending} placeholder="Short description of your startup idea" {...field} className="resize-none border-2 border-black  rounded-lg px-5 bg-white h-10"/>
                 </FormControl>
                 <FormDescription>
                     {/* This is your public display name. */}
@@ -99,7 +95,7 @@ const CreateStartupForm = () => {
                 <FormItem>
                 <FormLabel>Category</FormLabel>
                 <FormControl>
-                    <Input placeholder="Choost a category (eg., Tech, Health, Education, etc.)" {...field} className="border-2 border-black rounded-full px-5 py-6 bg-white"/>
+                    <Input disabled={isPending} placeholder="Choost a category (eg., Tech, Health, Education, etc.)" {...field} className="border-2 border-black rounded-full px-5 py-6 bg-white"/>
                 </FormControl>
                 <FormDescription>
                     {/* This is your public display name. */}
@@ -116,7 +112,7 @@ const CreateStartupForm = () => {
                 <FormItem>
                 <FormLabel>Image Link</FormLabel>
                 <FormControl>
-                    <Input placeholder="Paste a link to your demo or promotional media" {...field} className="border-2 border-black rounded-full px-5 py-6 bg-white"/>
+                    <Input disabled={isPending} placeholder="Paste a link to your demo or promotional media" {...field} className="border-2 border-black rounded-full px-5 py-6 bg-white"/>
                 </FormControl>
                 <FormDescription>
                     {/* This is your public display name. */}
@@ -126,7 +122,7 @@ const CreateStartupForm = () => {
             )}
             />
             {/* PITCH FIELD */}
-            <FormField
+            {/* <FormField
             control={form.control}
             name="pitch"
             render={({ field }) => (
@@ -137,13 +133,13 @@ const CreateStartupForm = () => {
                 </FormControl>
                 <FormDescription>
                     {/* This is your public display name. */}
-                </FormDescription>
+                {/*</FormDescription>
                 <FormMessage />
                 </FormItem>
             )}
-            />
+            /> */}
             {/* SUBMIT BUTTON */}
-            <Button type="submit" className="p-6 rounded-full">Submit Your Pitch</Button>
+            <Button disabled={isPending} type="submit" className="p-6 rounded-full">Submit Your Pitch</Button>
         </form>
       </Form>
   )
