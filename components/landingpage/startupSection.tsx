@@ -6,7 +6,18 @@ import StartupSectionClient from '@/components/landingpage/StartupSectionClient'
 const StartupSection = async () => {
   const cardValues = await prisma.startup.findMany({
     include: {
-      user: true, // Include author data
+      user: {
+        select: {
+          id: true,
+          name: true,
+          username: true,
+          email: true,
+          image: true,
+          bio: true,
+          createdAt: true,
+          updatedAt:true,
+        }
+      }
     },
     orderBy: {
       createdAt: 'desc',
