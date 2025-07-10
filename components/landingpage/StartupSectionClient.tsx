@@ -36,7 +36,7 @@ const StartupSectionClient: React.FC<StartupSectionClientProps> = ({
   isProfile = false, // default false
 }) => {
   return (
-    <div className="w-full py-30 px-4 sm:px-6 lg:px-8 bg-[#fefbea]">
+    <div className=" w-full py-10 md:py-30 px-4 sm:px-6 lg:px-8 bg-[#fefbea]">
       <div className="flex flex-col gap-2">
         {!isProfile && (
           <motion.div
@@ -88,7 +88,7 @@ const StartupSectionClient: React.FC<StartupSectionClientProps> = ({
             ))}
           </div>
         ) : (
-          <div className="w-full h-90 flex items-center justify-center font-bold text-3xl mt-10">
+          <div className="w-full h-90 text-center flex items-center justify-center font-bold text-3xl mt-10">
             {isProfile ? "You haven't posted any startups yet." : "Nothing's Here Yet"}
           </div>
         )}

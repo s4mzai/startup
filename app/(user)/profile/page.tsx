@@ -25,11 +25,11 @@ const UserPrivateProfile = async () => {
   })
     if(!user) {return null}
   return (
-    <div className='bg-[#fafbea] flex '>
-        <div className='h-screen w-[40%]'>
+    <div className='bg-[#fafbea] flex flex-col md:flex-row '>
+        <div className='md:w-[40%]'>
             <UserProfileCard {...user}/>
         </div>
-        <div className='w-full h-full'>
+        <div className='md:w-full'>
             <StartupSection userId={session.user?.id} /> {/* changed from email to userId */}
         </div>
     </div>

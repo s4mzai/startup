@@ -1,5 +1,3 @@
-// This is the hamBurgerDropdown menu 
-
 "use client";
 
 import {
@@ -9,15 +7,18 @@ import {
   FiShare,
   FiPlusSquare,
 } from "react-icons/fi";
+import { CgProfile } from "react-icons/cg";
 import { motion, MotionConfig } from "framer-motion";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { IconType } from "react-icons";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import SignOutButton from "../auth/signOutButton";
 
 const StaggeredDropDown = () => {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -31,6 +32,9 @@ const StaggeredDropDown = () => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  const { data: session, status } = useSession();
+  if (status === "loading") return <></>;
 
   return (
     <div className="flex items-center justify-center font-medium">
@@ -73,13 +77,32 @@ const StaggeredDropDown = () => {
           initial={wrapperVariants.closed}
           variants={wrapperVariants}
           style={{ originY: "top", translateX: "-80%" }}
-          className="flex flex-col gap-2 p-2 rounded-lg justify-around  bg-white shadow-xl absolute top-[120%] left-[50%] w-56 h-72 overflow-hidden z-50"
+          className="flex flex-col gap-2 p-2 rounded-lg justify-around bg-white shadow-xl absolute top-[120%] left-[50%] w-56 h-72 overflow-hidden z-50"
         >
-          <Option setOpen={setOpen} Icon={FiEdit} text="Home" />
-          <Option setOpen={setOpen} Icon={FiPlusSquare} text="Startups" />
-          <Option setOpen={setOpen} Icon={FiShare} text="Features" />
-          <Option setOpen={setOpen} Icon={FiTrash} text="Docs" />
-          <Option setOpen={setOpen} Icon={FiLogIn} text="LogIn" />
+          <Link href="/">
+            <Option setOpen={setOpen} Icon={FiEdit} text="Home" />
+          </Link>
+          <Link href="/startups">
+            <Option setOpen={setOpen} Icon={FiPlusSquare} text="Startups" />
+          </Link>
+          <Link href="/features">
+            <Option setOpen={setOpen} Icon={FiShare} text="Features" />
+          </Link>
+
+          {session ? (
+            <>
+              <SignOutButton>
+                <Option setOpen={setOpen} Icon={FiShare} text="Sign Out" />
+              </SignOutButton>
+              <Link href="/profile">
+                <Option setOpen={setOpen} Icon={CgProfile} text="Profile" />
+              </Link>
+            </>
+          ) : (
+            <Link href="/signin">
+              <Option setOpen={setOpen} Icon={FiLogIn} text="Log In" />
+            </Link>
+          )}
         </motion.ul>
       </motion.div>
     </div>
@@ -111,7 +134,7 @@ const Option = ({
 
 export default StaggeredDropDown;
 
-// Dropdown animation variants
+// Animation Variants
 const wrapperVariants = {
   open: {
     scaleY: 1,
@@ -151,7 +174,6 @@ const actionIconVariants = {
   closed: { scale: 0, y: -7 },
 };
 
-// Hamburger line animation
 const VARIANTS = {
   top: {
     open: {
