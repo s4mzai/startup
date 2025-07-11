@@ -2,18 +2,16 @@
 
 import {
   FiEdit,
-  FiTrash,
   FiLogIn,
-  FiShare,
   FiPlusSquare,
 } from "react-icons/fi";
+import { IoMdCreate } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import { motion, MotionConfig } from "framer-motion";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { IconType } from "react-icons";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import SignOutButton from "../auth/signOutButton";
 
 const StaggeredDropDown = () => {
   const [open, setOpen] = useState(false);
@@ -37,7 +35,7 @@ const StaggeredDropDown = () => {
   if (status === "loading") return <></>;
 
   return (
-    <div className="flex items-center justify-center font-medium" >
+    <div className="flex items-center justify-center font-medium">
       <motion.div
         animate={open ? "open" : "closed"}
         className="relative"
@@ -77,7 +75,7 @@ const StaggeredDropDown = () => {
           initial={wrapperVariants.closed}
           variants={wrapperVariants}
           style={{ originY: "top", translateX: "-80%" }}
-          className="flex mt-2 flex-col gap-2 p-2 rounded-lg justify-around bg-white shadow-xl absolute top-[120%] left-[50%] w-56 h-72 overflow-hidden z-100"
+          className="flex mt-2 flex-col gap-2 py-2 px-3 rounded-xl bg-white shadow-xl absolute top-[120%] left-[50%] min-w-[14rem] z-50"
         >
           <Link href="/#herosection">
             <Option setOpen={setOpen} Icon={FiEdit} text="Home" />
@@ -85,16 +83,16 @@ const StaggeredDropDown = () => {
           <Link href="/#startupsection">
             <Option setOpen={setOpen} Icon={FiPlusSquare} text="Startups" />
           </Link>
+          {session &&(
+            <Link href="/create">
+              <Option setOpen={setOpen} Icon={IoMdCreate} text="Create" />
+            </Link>
+          )}
 
           {session ? (
-            <>
-              <SignOutButton>
-                <Option setOpen={setOpen} Icon={FiShare} text="Sign Out" />
-              </SignOutButton>
-              <Link href="/profile">
-                <Option setOpen={setOpen} Icon={CgProfile} text="Profile" />
-              </Link>
-            </>
+            <Link href="/profile">
+              <Option setOpen={setOpen} Icon={CgProfile} text="Profile" />
+            </Link>
           ) : (
             <Link href="/signin">
               <Option setOpen={setOpen} Icon={FiLogIn} text="Log In" />
@@ -119,7 +117,7 @@ const Option = ({
     <motion.li
       variants={itemVariants}
       onClick={() => setOpen(false)}
-      className="flex items-center gap-2 w-full p-2 h-full rounded-lg text-center text-sm font-medium whitespace-nowrap border-b hover:bg-indigo-100 text-slate-700 hover:text-indigo-500 transition-colors cursor-pointer"
+      className="flex items-center gap-2 w-full py-2 px-3 rounded-md text-sm font-medium whitespace-nowrap hover:bg-indigo-100 text-slate-700 hover:text-indigo-500 transition-colors cursor-pointer"
     >
       <motion.span variants={actionIconVariants}>
         <Icon />

@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import React from 'react';
 import StartupCard from '@/components/animations/StartupCard';
@@ -40,9 +40,9 @@ const StartupSectionClient: React.FC<StartupSectionClientProps> = ({
       <div className="flex flex-col gap-2">
         {!isProfile && (
           <motion.div
-            initial={{ y: -40, opacity: 0 }}
+            initial={{ x: -40, opacity: 0 }}
             whileInView={{
-              y: 0,
+              x: 0,
               opacity: 1,
               transition: {
                 type: 'tween',
@@ -63,21 +63,24 @@ const StartupSectionClient: React.FC<StartupSectionClientProps> = ({
 
         {isProfile && (
           <motion.div 
-            initial={{ y: -40, opacity: 0 }}
+            initial={{ x: 60, opacity: 0 }}
             whileInView={{
-              y: 0,
+              x: 0,
               opacity: 1,
               transition: {
-                type: 'tween',
+                type: "tween",
                 duration: 1.2,
                 delay: 0.2,
                 ease: [0.25, 0.25, 0.25, 0.75],
               },
             }}
-            viewport={{ once: true, amount: 0.7 }} className="px-10 font-extrabold text-center items-center flex flex-col gap-2">
+            viewport={{ once: true, amount: 0.7 }}
+            className="px-10 font-extrabold text-center items-center flex flex-col gap-2"
+          >
             <h2 className="text-5xl">Your Startups</h2>
           </motion.div>
         )}
+
 
         {displayedCards.length > 0 ? (
           <div className="flex flex-wrap justify-center gap-6 mt-8">

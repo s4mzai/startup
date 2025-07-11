@@ -3,6 +3,7 @@ import { SlideTabs } from "@/components/animations/navbarSlideTabs";
 import StaggeredDropDown from "@/components/animations/hamburgerDropdown";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -47,14 +48,16 @@ export const Navbar = () => {
         className="flex w-[90%] h-20 sm:w-[80%] items-center px-6 py-3 rounded-full justify-between"
       >
         {/* Logo - LEFT */}
-        <motion.h1 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2, duration: 0.3 }}
-          className="text-black text-3xl font-extrabold"
-        >
-          Startup
-        </motion.h1>
+        <Link href="/">
+          <motion.h1 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.2, duration: 0.3 }}
+            className="text-black text-3xl font-extrabold"
+          >
+            Startup
+          </motion.h1>
+        </Link>
         
         {/* Tabs */}
         <motion.div

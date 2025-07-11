@@ -62,7 +62,7 @@ const StartupCard: React.FC<StartupCardProps> = ({
           },
         }}
         viewport={{ once: true, amount: 0.7 }}
-        className="w-[320px] h-[420px] sm:w-[300px] sm:h-[400px] rounded-2xl px-5 py-6 flex flex-col cursor-pointer border border-black border-dashed bg-[#fabb20] shadow-[4px_8px_8px_rgba(0,0,0,0.38)]"
+        className="w-[320px] h-[420px] sm:w-[300px] sm:h-[400px] rounded-2xl px-5 py-6 flex flex-col cursor-pointer border-2 border-black border-dashed bg-[#fabb20] shadow-[4px_8px_8px_rgba(0,0,0,0.38)]"
       >
         {/* Author - Mobile always visible, desktop on hover */}
         {!isProfile &&(

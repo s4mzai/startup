@@ -89,7 +89,7 @@ export const SlideTabs: React.FC = () => {
         {session && (
           <div
             onClick={() => router.push("/profile")}
-            className="cursor-pointer w-10 h-10 rounded-full overflow-hidden"
+            className="cursor-pointer w-10 h-10 rounded-full overflow-hidden ml-2"
           >
             <Image
               src={session.user?.image || "/default-avatar.png"}
