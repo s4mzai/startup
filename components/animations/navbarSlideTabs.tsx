@@ -40,7 +40,7 @@ export const SlideTabs: React.FC = () => {
   return (  
     //   {/* Navigation with ALL buttons - spans full width */}
     <ul
-        className="w-full hidden  relative lg:flex justify-between items-center ml-10"
+        className="w-full hidden  relative lg:flex justify-between items-center "
     >
         {/* Empty space for balance */}
         <div></div>
@@ -52,9 +52,9 @@ export const SlideTabs: React.FC = () => {
             opacity: 0,
         }));
         }} className="flex gap-2 border-2 border-none p-1 rounded-full">
-          <Tab setPosition={setPosition}>Home</Tab>
+          <Link href={"/#herosection"}><Tab setPosition={setPosition}>Home</Tab></Link>
           <Link href={"/#startupsection"}><Tab setPosition={setPosition}>Startups</Tab></Link>
-          <Tab setPosition={setPosition}>Features</Tab>
+          {/* <Tab setPosition={setPosition}>Features</Tab> */}
           {session &&(
             <Link href={'/create'} className="rounded-full"><Tab setPosition={setPosition} >Create</Tab></Link>
           )}

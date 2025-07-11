@@ -77,16 +77,13 @@ const StaggeredDropDown = () => {
           initial={wrapperVariants.closed}
           variants={wrapperVariants}
           style={{ originY: "top", translateX: "-80%" }}
-          className="flex mt-2 flex-col gap-2 p-2 rounded-lg justify-around bg-white shadow-xl absolute top-[120%] left-[50%] w-56 h-72 overflow-hidden z-50"
+          className="flex mt-2 flex-col gap-2 p-2 rounded-lg justify-around bg-white shadow-xl absolute top-[120%] left-[50%] w-56 h-72 overflow-hidden z-100"
         >
-          <Link href="/">
+          <Link href="/#herosection">
             <Option setOpen={setOpen} Icon={FiEdit} text="Home" />
           </Link>
-          <Link href="/startups">
+          <Link href="/#startupsection">
             <Option setOpen={setOpen} Icon={FiPlusSquare} text="Startups" />
-          </Link>
-          <Link href="/features">
-            <Option setOpen={setOpen} Icon={FiShare} text="Features" />
           </Link>
 
           {session ? (

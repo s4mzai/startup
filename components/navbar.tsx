@@ -19,12 +19,12 @@ export const Navbar = () => {
 
   return (
     <motion.div
-      className="fixed left-1/2 z-50 items-center justify-center flex w-full transform -translate-x-1/2"
-      animate={{
-        top: scrolled ? 5 : 20, // top-10 (40px)
-      }}
+      initial={{ top: 20 }} // Set to match your starting point
+      animate={{ top: scrolled ? 5 : 20 }}
       transition={{ duration: 0.3 }}
+      className="fixed left-1/2 z-50 items-center justify-center flex w-full transform -translate-x-1/2"
     >
+
       <motion.div
         animate={{
           backgroundColor: scrolled ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0)",
@@ -32,7 +32,7 @@ export const Navbar = () => {
           boxShadow: scrolled ? "0 4px 12px rgba(0, 0, 0, 0.1)" : "none",
         }}
         transition={{ duration: 0.3 }}
-        className="flex w-[90%] sm:w-[80%] items-center gap-6 px-6 py-3 rounded-full justify-between"
+        className="flex w-[90%] h-20 sm:w-[80%] items-center px-6 py-3 rounded-full justify-between"
       >
         {/* Logo - LEFT */}
         <h1 className="text-black text-3xl font-extrabold">Startup</h1>
@@ -41,7 +41,7 @@ export const Navbar = () => {
         <SlideTabs />
 
         {/* Hamburger Menu - Mobile */} 
-        <div className="lg:hidden">
+        <div className="lg:hidden mt-">
           <StaggeredDropDown />
         </div>
       </motion.div>
