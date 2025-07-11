@@ -6,11 +6,17 @@ export default function Home() {
   return (
     <>
       {/* HERO SECTION HERE */}
-      <HeroSection/>
+      <div id="herosection">
+        <HeroSection/>
+      </div>
       {/* STARTUPS SECTION HERE */}
-      <StartupSection/>
+      <div id="startupsection">
+        <StartupSection/>
+      </div>
       {/* FOOTER HERE */}
-      <FooterSection/>  
+      <div id="footersection">
+        <FooterSection/>
+      </div>
     </>
   );
 }

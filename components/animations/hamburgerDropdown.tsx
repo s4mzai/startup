@@ -37,7 +37,7 @@ const StaggeredDropDown = () => {
   if (status === "loading") return <></>;
 
   return (
-    <div className="flex items-center justify-center font-medium">
+    <div className="flex items-center justify-center font-medium" >
       <motion.div
         animate={open ? "open" : "closed"}
         className="relative"
@@ -77,7 +77,7 @@ const StaggeredDropDown = () => {
           initial={wrapperVariants.closed}
           variants={wrapperVariants}
           style={{ originY: "top", translateX: "-80%" }}
-          className="flex flex-col gap-2 p-2 rounded-lg justify-around bg-white shadow-xl absolute top-[120%] left-[50%] w-56 h-72 overflow-hidden z-50"
+          className="flex mt-2 flex-col gap-2 p-2 rounded-lg justify-around bg-white shadow-xl absolute top-[120%] left-[50%] w-56 h-72 overflow-hidden z-50"
         >
           <Link href="/">
             <Option setOpen={setOpen} Icon={FiEdit} text="Home" />

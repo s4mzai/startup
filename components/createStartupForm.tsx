@@ -34,7 +34,7 @@ const CreateStartupForm = () => {
             description: "",
             category: "",
             imageLink: "/startupImage.jpg",
-            // pitch: "",
+            pitch: "",
         }
     })
 
@@ -121,23 +121,23 @@ const CreateStartupForm = () => {
                 </FormItem>
             )}
             />
-            {/* PITCH FIELD */}
-            {/* <FormField
+            {/* PITCH FIELD  */}
+             <FormField
             control={form.control}
             name="pitch"
             render={({ field }) => (
                 <FormItem>
                 <FormLabel>Pitch</FormLabel>
                 <FormControl>
-                    <Textarea placeholder="Briefly describe your idea and what problem it solves" {...field} className="resize-none border-2 border-black  rounded-lg px-5 bg-white h-10"/>
+                    <Textarea disabled={isPending} placeholder="Briefly describe your idea and what problem it solves" {...field} className="resize-none border-2 border-black  rounded-lg px-5 bg-white h-10"/>
                 </FormControl>
                 <FormDescription>
-                    {/* This is your public display name. */}
-                {/*</FormDescription>
+                    This is your public display name. 
+                </FormDescription>
                 <FormMessage />
                 </FormItem>
             )}
-            /> */}
+            />
             {/* SUBMIT BUTTON */}
             <Button disabled={isPending} type="submit" className="p-6 rounded-full">Submit Your Pitch</Button>
         </form>

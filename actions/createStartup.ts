@@ -14,7 +14,7 @@ export async function createStartup(values: startupSchemaType) {
     
     try {
 
-        const { title, description, category, imageLink } = startupSchema.parse(values) as startupSchemaType
+        const { title, description, category, imageLink,pitch} = startupSchema.parse(values) as startupSchemaType
 
         await prisma.startup.create({
             data:{
@@ -23,6 +23,7 @@ export async function createStartup(values: startupSchemaType) {
                 category,
                 image: imageLink,
                 views: 0,
+                pitch,
                 user: {
                     connect: { id: userId }
                 },

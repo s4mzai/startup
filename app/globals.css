@@ -133,3 +133,6 @@
   font-family: "Londrina Shadow", cursive;
   font-weight: 400;
 }
+html {
+  scroll-behavior: smooth;
+}

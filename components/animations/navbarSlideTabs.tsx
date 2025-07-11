@@ -40,7 +40,7 @@ export const SlideTabs: React.FC = () => {
   return (  
     //   {/* Navigation with ALL buttons - spans full width */}
     <ul
-        className="w-full hidden  relative md:flex justify-between items-center ml-10"
+        className="w-full hidden  relative lg:flex justify-between items-center ml-10"
     >
         {/* Empty space for balance */}
         <div></div>
@@ -51,9 +51,9 @@ export const SlideTabs: React.FC = () => {
             ...pv,
             opacity: 0,
         }));
-        }} className="flex gap-2 border-2 border-[#fabb20] p-1  hover:border-black rounded-full">
+        }} className="flex gap-2 border-2 border-none p-1 rounded-full">
           <Tab setPosition={setPosition}>Home</Tab>
-          <Tab setPosition={setPosition}>Startups</Tab>
+          <Link href={"/#startupsection"}><Tab setPosition={setPosition}>Startups</Tab></Link>
           <Tab setPosition={setPosition}>Features</Tab>
           {session &&(
             <Link href={'/create'} className="rounded-full"><Tab setPosition={setPosition} >Create</Tab></Link>
@@ -109,7 +109,7 @@ const Tab: React.FC<TabProps> = ({ children, setPosition }) => {
           opacity: 1,
         });
       }}
-      className="relative z-10 block px-5 font-medium cursor-pointer py-1.5 text-xs uppercase text-black hover:text-[#fabb20] md:py-3 md:text-base"
+      className="relative z-10 block px-5 font-medium cursor-pointer py-1.5 text-xs uppercase text-black hover:text-[#fabb20] lg:py-3 lg:text-base"
     >
       {children}
     </li>
@@ -122,7 +122,7 @@ const Cursor: React.FC<CursorProps> = ({ position }) => {
       animate={{
         ...position,
       }}
-      className="absolute z-0 h-7 rounded-full bg-black  md:h-12"
+      className="absolute z-0 h-7 rounded-full bg-black  lg:h-12"
     />
   );
 };

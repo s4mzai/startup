@@ -13,9 +13,9 @@ export const startupSchema = z.object({
     imageLink: z.string().min(1, {
         message: "imageLink is must.",
     }),
-    //   pitch: z.string().min(1, {
-    //     message: "pitch is must.",
-    //   }),
+    pitch: z.string().min(1, {
+    message: "pitch is must.",
+    }),
 })
 
 export type startupSchemaType = z.infer<typeof startupSchema>

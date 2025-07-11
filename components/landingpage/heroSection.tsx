@@ -36,7 +36,7 @@ const HeroSection = () => {
   };
   return (
     <>
-      <div className="h-[43rem] w-full flex flex-col items-center justify-between pt-5 pb-15 bg-[#fabb20]">
+      <div className="h-[43rem] w-full flex flex-col items-center justify-between pt-40 pb-15 bg-[#fabb20]">
         <Navbar />
         <p className="text-sm mt-5 md:mt-0 hover:bg-amber-100 text-amber-800 bg-amber-300 rounded-lg px-2 cursor-default">
           🚀 Launch Your Dream Startup
