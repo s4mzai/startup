@@ -20,7 +20,7 @@ const SignOutButton: React.FC<SignOutButtonProps> = ({ children }) => {
 
   return (
     <button
-      className="text-white bg-transparent rounded-full"
+      className="text-white bg-black p-2 hover:bg-gray-900 cursor-pointer rounded-full"
       disabled={loading}
       onClick={handleSignOut}
     >

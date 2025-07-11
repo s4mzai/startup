@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Link from "next/link";
 import React, { useRef, useState, ReactNode } from "react";
@@ -23,73 +23,85 @@ interface CursorProps {
   position: Position;
 }
 
-
 export const SlideTabs: React.FC = () => {
-  const router = useRouter()
-  const { data: session,status } = useSession()
+  const router = useRouter();
+  const { data: session, status } = useSession();
   const [position, setPosition] = useState<Position>({
     left: 0,
     width: 0,
     opacity: 0,
   });
-  if(status ==="loading"){
-    return (
-      <></>
-    )
-  }
-  return (  
-    //   {/* Navigation with ALL buttons - spans full width */}
-    <ul
-        className="w-full hidden  relative lg:flex justify-between items-center "
-    >
-        {/* Empty space for balance */}
-        <div></div>
-        {/* Center navigation buttons */}
-        <div
+
+  const scrollToSection = (id: string) => {
+    if (window.location.pathname === "/") {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      router.push("/");
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      }, 300); // Slightly longer timeout to allow the homepage to load
+    }
+  };
+
+
+  if (status === "loading") return null;
+
+  return (
+    <ul className="w-full hidden relative lg:flex justify-between items-center">
+      {/* Left spacer */}
+      <div></div>
+
+      {/* Center nav */}
+      <div
         onMouseLeave={() => {
-        setPosition((pv) => ({
-            ...pv,
-            opacity: 0,
-        }));
-        }} className="flex gap-2 border-2 border-none p-1 rounded-full">
-          <Link href={"/#herosection"}><Tab setPosition={setPosition}>Home</Tab></Link>
-          <Link href={"/#startupsection"}><Tab setPosition={setPosition}>Startups</Tab></Link>
-          {/* <Tab setPosition={setPosition}>Features</Tab> */}
-          {session &&(
-            <Link href={'/create'} className="rounded-full"><Tab setPosition={setPosition} >Create</Tab></Link>
-          )}
-        </div>
-        <div className="flex items-center justify-center gap-3">
-          {session?<div onMouseLeave={()=>{
-            setPosition((pv)=>({
-                ...pv,
-                opacity:0,
-            }))
-            }}><SignOutButton><Tab setPosition={setPosition}>SignOut</Tab></SignOutButton></div>
-          :<Link onMouseLeave={()=>{
-            setPosition((pv)=>({
-                ...pv,
-                opacity:0,
-            }))
-            }} href={"/signin"}>
+          setPosition((pv) => ({ ...pv, opacity: 0 }));
+        }}
+        className="flex gap-2 border-2 border-none p-1 rounded-full"
+      >
+        <span onClick={() => scrollToSection("herosection")}>
+          <Tab setPosition={setPosition}>Home</Tab>
+        </span>
+        <span onClick={() => scrollToSection("startupsection")}>
+          <Tab setPosition={setPosition}>Startups</Tab>
+        </span>
+        {session && (
+          <Link href={"/create"} className="rounded-full">
+            <Tab setPosition={setPosition}>Create</Tab>
+          </Link>
+        )}
+      </div>
+
+      {/* Right section */}
+      <div className="flex items-center justify-center gap-3">
+        {!session && (
+          <Link
+            onMouseLeave={() =>
+              setPosition((pv) => ({ ...pv, opacity: 0 }))
+            }
+            href={"/signin"}
+          >
             <Tab setPosition={setPosition}>Sign In</Tab>
-            </Link>
-          }
-          <Cursor position={position} />
-          {session &&(
-            <div onClick={()=>router.push("/profile")} className="cursor-pointer w-10 h-10 rounded-full overflow-hidden">
-              <Image src={`${session?.user?.image}`} 
+          </Link>
+        )}
+
+        <Cursor position={position} />
+
+        {session && (
+          <div
+            onClick={() => router.push("/profile")}
+            className="cursor-pointer w-10 h-10 rounded-full overflow-hidden"
+          >
+            <Image
+              src={session.user?.image || "/default-avatar.png"}
               alt="avatar"
               width={48}
               height={48}
-              className="w-full h-full object-cover" />
-            </div>
-          )}
-        </div>
-        
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+      </div>
     </ul>
-      
-      
   );
 };
 
@@ -101,7 +113,6 @@ const Tab: React.FC<TabProps> = ({ children, setPosition }) => {
       ref={ref}
       onMouseEnter={() => {
         if (!ref.current) return;
-        
         const { width } = ref.current.getBoundingClientRect();
         setPosition({
           left: ref.current.offsetLeft,
@@ -119,10 +130,8 @@ const Tab: React.FC<TabProps> = ({ children, setPosition }) => {
 const Cursor: React.FC<CursorProps> = ({ position }) => {
   return (
     <motion.li
-      animate={{
-        ...position,
-      }}
-      className="absolute z-0 h-7 rounded-full bg-black  lg:h-12"
+      animate={{ ...position }}
+      className="absolute z-0 h-7 rounded-full bg-black lg:h-12"
     />
   );
 };

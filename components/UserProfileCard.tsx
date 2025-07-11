@@ -25,7 +25,7 @@ const UserProfileCard: React.FC<UserProfileCardProps> = ({
   }
 
   return (
-    <div className="h-full w-full p-10">
+    <div className=" w-full p-10">
       <div className="bg-[#fabb20] rounded-lg border-2 border-black p-5 flex flex-col items-center justify-center gap-5">
         <h1 className="londrina text-5xl">
           <AnimatedText text={`${name}`} />

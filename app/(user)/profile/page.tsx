@@ -1,8 +1,10 @@
 
+import SignOutButton from '@/components/auth/signOutButton'
 import StartupSection from '@/components/landingpage/startupSection'
 import UserProfileCard from '@/components/UserProfileCard'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+import { dimensionValueTypes } from 'framer-motion'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
@@ -26,8 +28,13 @@ const UserPrivateProfile = async () => {
     if(!user) {return null}
   return (
     <div className='bg-[#fafbea] flex flex-col md:flex-row min-h-screen '>
-        <div className='md:w-[40%]'>
+        <div className='md:w-[40%] flex flex-col items-center'>
             <UserProfileCard {...user}/>
+            {session &&(
+              <div className=''>
+                <SignOutButton/>
+              </div>
+            )}
         </div>
         <div className='md:w-full'>
             <StartupSection userId={session.user?.id} /> {/* changed from email to userId */}
