@@ -25,7 +25,7 @@ const UserPrivateProfile = async () => {
   })
     if(!user) {return null}
   return (
-    <div className='bg-[#fafbea] flex flex-col md:flex-row '>
+    <div className='bg-[#fafbea] flex flex-col md:flex-row min-h-screen '>
         <div className='md:w-[40%]'>
             <UserProfileCard {...user}/>
         </div>
