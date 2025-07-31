@@ -3,7 +3,7 @@
 import { signIn } from "@/lib/auth"
 import {prisma} from "@/lib/prisma"
 import bcrypt from 'bcrypt';
-import { signUpSchema, SignUpSchemaType } from "../lib/signUpSchema";
+import { signUpSchema, SignUpSchemaType } from "../lib/schema/signUpSchema";
 
 export async function signUpWithCredentials(formData: FormData) {
     

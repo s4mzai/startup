@@ -4,7 +4,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import {prisma} from "@/lib/prisma"
 import Google from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials"
-import { SignInSchemaType, signInSchema } from "@/lib/signInSchema"
+import { SignInSchemaType, signInSchema } from "@/lib/schema/signInSchema"
 import { v4 as uuid } from "uuid";
 import { encode as defaultEncode } from "next-auth/jwt";
 import bcrypt from 'bcrypt';

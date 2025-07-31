@@ -2,7 +2,7 @@
 
 import { auth } from "@/lib/auth"
 import {prisma} from "@/lib/prisma"
-import { startupSchema, startupSchemaType } from "@/lib/startupSchema"
+import { startupSchema, startupSchemaType } from "@/lib/schema/startupSchema"
 
 export async function createStartup(values: startupSchemaType) {
     const session = await auth()

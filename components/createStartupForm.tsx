@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { startupSchema } from "@/lib/startupSchema"
+import { startupSchema } from "@/lib/schema/startupSchema"
 import { useTransition } from "react"
 
 import { Button } from "@/components/ui/button"
