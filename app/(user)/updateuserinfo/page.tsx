@@ -6,7 +6,7 @@ const UpdateUserInfo = async() => {
   const session = await auth();
   const user = await prisma.user.findUnique({where:{id:session?.user?.id}})
   return (
-    <div className='bg-[#fabb20] lg:bg-[#fafbea] flex flex-col p-10 w-full items-center justify-center min-h-screen'>
+    <div className='bg-[#fabb20] lg:bg-[#fafbea] flex flex-col pt-10 px-10 w-full items-center justify-center min-h-screen'>
         {/* UPPER CONTAINER HERE */}
         <div className='text-3xl font-extrabold uppercase border-b-1 w-fit p-5 border-black border-dashed text-center'>
             Help Us To Know You Better!
