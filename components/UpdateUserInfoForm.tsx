@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { userUpdateSchema } from "@/lib/schema/updateUserSchema"
+import { useRouter } from "next/navigation"
+import { DialogComponent } from "./updateUserFieldDialog"
 
 interface UpdateUserInfoFormProps {
   defaultName: string | null
@@ -23,18 +25,19 @@ interface UpdateUserInfoFormProps {
   defaultImage: string | null
 }
 
+
 const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({
   defaultName,
   defaultUsername,
   defaultBio,
   defaultImage,
 }) => {
-
+  const router = useRouter()
   const form = useForm<z.infer<typeof userUpdateSchema>>({
     resolver: zodResolver(userUpdateSchema),
     defaultValues: {
       name: defaultName || "",
-      username: defaultUsername || "Username not available! Kindly set your username to not have any complications in future",
+      username: "@"+defaultUsername || "Username not available! Kindly set your username to not have any complications in future",
       bio: defaultBio || "Bio not available!",
       image: defaultImage || "",
     },
@@ -61,7 +64,7 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({
                 <div className="flex flex-col gap-3 w-full sm:w-[80%]">
                   <div className="w-full px-5 flex items-center justify-between">
                     <FormLabel>Name</FormLabel>
-                    <FormMessage />
+                    {/* <FormMessage /> */}
                   </div>
                   <FormControl>
                     <Input
@@ -82,11 +85,14 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({
                   </FormControl>
                 </div>
 
-                <Button
+                {/* <Button
                   className="w-full sm:w-[20%] h-12 min-w-[100px] rounded-lg border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black transition-all duration-300 translate-x-[-4px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[-4px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_#fabb20] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
                 >
                   Edit Name
-                </Button>
+                </Button> */}
+                <DialogComponent label="Name" field="name" initialValue={defaultName || ""} 
+                  
+                />
               </FormItem>
             )}
           />
@@ -100,7 +106,7 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({
                 <div className="flex flex-col gap-3 w-full sm:w-[80%]">
                   <div className="w-full px-5 flex items-center justify-between">
                     <FormLabel>UserName</FormLabel>
-                    <FormMessage />
+                    {/* <FormMessage /> */}
                   </div>
                   <FormControl>
                     <Input
@@ -122,11 +128,14 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({
                   </FormControl>
                 </div>
 
-                <Button
+                {/* <Button
                   className="w-full sm:w-[20%] h-12 min-w-[100px] rounded-lg border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black transition-all duration-300 translate-x-[-4px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[-4px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_#fabb20] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
                 >
                   Edit Username
-                </Button>
+                </Button> */}
+                <DialogComponent label="UserName" field="username" initialValue={defaultUsername || ""} 
+                  
+                />
               </FormItem>
             )}
           />
@@ -140,7 +149,7 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({
                 <div className="flex flex-col gap-3 w-full sm:w-[80%]">
                   <div className="w-full px-5 flex items-center justify-between">
                     <FormLabel>Bio</FormLabel>
-                    <FormMessage />
+                    {/* <FormMessage /> */}
                   </div>
                   <FormControl>
                     <Input
@@ -161,11 +170,14 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({
                   </FormControl>
                 </div>
 
-                <Button
+                {/* <Button
                   className="w-full sm:w-[20%] h-12 min-w-[100px] rounded-lg border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black transition-all duration-300 translate-x-[-4px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[-4px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_#fabb20] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
                 >
                   Edit Bio
-                </Button>
+                </Button> */}
+                <DialogComponent label="Bio" field="bio" initialValue={defaultBio || ""} 
+                  
+                />
               </FormItem>
             )}
           />
@@ -179,7 +191,7 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({
                 <div className="flex flex-col gap-3 w-full sm:w-[80%]">
                   <div className="w-full px-5 flex items-center justify-between">
                     <FormLabel>Profile Image</FormLabel>
-                    <FormMessage />
+                    {/* <FormMessage /> */}
                   </div>
                   <FormControl>
                     <Input
@@ -200,14 +212,24 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({
                   </FormControl>
                 </div>
 
-                <Button
+                {/* <Button
                   className="w-full sm:w-[20%] h-12 min-w-[100px] rounded-lg border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black transition-all duration-300 translate-x-[-4px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[-4px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_#fabb20] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
                 >
                   Edit Image
-                </Button>
+                </Button> */}
+                <DialogComponent label="Image" field="image" initialValue={defaultImage || ""} 
+
+                />
               </FormItem>
             )}
           />
+          {/* Back to homepage button */}
+          <Button
+            onClick={()=>router.push("/")}
+            className="h-12 rounded-2xl border-2 border-dashed border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black transition-all duration-300 translate-x-[-4px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[-4px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_#fabb20] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+          >
+            Back To Home 
+          </Button>
         </div>
       </form>
     </Form>
