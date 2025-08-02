@@ -1,21 +1,29 @@
 import FooterSection from "@/components/landingpage/footerSection";
 import HeroSection from "@/components/landingpage/heroSection";
 import StartupSection from "@/components/landingpage/startupSection";
+import ScrollToStartup from "@/components/landingpage/ScrollToStartup"; // ⬅️ this
 
-export default function Home() {
+interface HomeProps {
+  searchParams: {
+    query?: string;
+  };
+}
+
+export default function Home({ searchParams }: HomeProps) {
   return (
     <>
-      {/* HERO SECTION HERE */}
+      <ScrollToStartup />
+
       <div id="herosection">
-        <HeroSection/>
+        <HeroSection />
       </div>
-      {/* STARTUPS SECTION HERE */}
+
       <div id="startupsection">
-        <StartupSection/>
+        <StartupSection searchQuery={searchParams.query} />
       </div>
-      {/* FOOTER HERE */}
+
       <div id="footersection">
-        <FooterSection/>
+        <FooterSection />
       </div>
     </>
   );

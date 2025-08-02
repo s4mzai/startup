@@ -2,38 +2,15 @@
 
 import { Navbar } from "@/components/navbar";
 import AnimatedText from "@/components/animations/fillText";
-import { PlaceholdersAndVanishInput } from "@/components/animations/placeholderVanishInput";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion"
+import SearchForm from "../SearchForm";
+import { useRouter } from "next/navigation";
 
 
 
 const HeroSection = () => {
-  const placeholders = [
-  "Search startup names like 'Zerodha'",
-  "Search by founder name, e.g. 'Nikhil Kamath'",
-  "Explore categories like 'AI' or 'EdTech'",
-  "Find titles like 'Productivity App' or 'AI Co-pilot'",
-  "Looking for a Robotics startup?",
-  // "Type a problem, find who’s solving it",
-  "Search healthtech, fintech, spacetech…",
-  "Who's building the next big thing?",
-  "Explore by tagline or mission",
-  "Discover tools built for creators",
-  "Find stealth startups with unique ideas",
-  // "Search ‘YC’ to find YC-backed startups",
-  // "Search by keywords like 'climate', 'education', 'crypto'",
-  "Find projects by solo founders",
-  "Startups with 10x potential? Search them here",
-  "Who's building in your city? Try 'Bangalore' or 'SF'",
-]
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
-  };
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("submitted");
-  };
+  const router = useRouter()
   return (
     <>
       <div className="h-[43rem] w-full flex flex-col items-center justify-between pt-40 pb-15 bg-[#fabb20]">
@@ -73,21 +50,17 @@ const HeroSection = () => {
         </p>
         {/* <SearchInput /> */}
         <div className="w-full px-5">
-          <PlaceholdersAndVanishInput 
-          placeholders={placeholders}
-          onChange={handleChange}
-          onSubmit={onSubmit}
-          />
+          <SearchForm/>
         </div>
         <div className="gap-3 items-center justify-center hidden lg:flex">
           <h2 className="font-bold">Suggested:</h2>
           <div className="flex gap-3">
-            <Button size={"lg"} className='rounded-2xl border-2 border-dashed border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black  transition-all duration-300 translate-x-[0px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[0px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_white] active:translate-x-[4px] active:translate-y-[4px] active:rounded-2xl active:shadow-none '>TECH</Button>
-            <Button size={"lg"} className='rounded-2xl border-2 border-dashed border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black  transition-all duration-300 translate-x-[0px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[0px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_white] active:translate-x-[4px] active:translate-y-[4px] active:rounded-2xl active:shadow-none '>ROBOTICS</Button>
-            <Button size={"lg"} className='rounded-2xl border-2 border-dashed border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black  transition-all duration-300 translate-x-[0px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[0px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_white] active:translate-x-[4px] active:translate-y-[4px] active:rounded-2xl active:shadow-none '>AI</Button>
-            <Button size={"lg"} className='rounded-2xl border-2 border-dashed border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black  transition-all duration-300 translate-x-[0px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[0px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_white] active:translate-x-[4px] active:translate-y-[4px] active:rounded-2xl active:shadow-none '>EDUCATION</Button>
-            <Button size={"lg"} className='rounded-2xl border-2 border-dashed border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black  transition-all duration-300 translate-x-[0px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[0px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_white] active:translate-x-[4px] active:translate-y-[4px] active:rounded-2xl active:shadow-none '>HEALTH CARE</Button>
-            <Button size={"lg"} className='rounded-2xl border-2 border-dashed border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black  transition-all duration-300 translate-x-[0px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[0px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_white] active:translate-x-[4px] active:translate-y-[4px] active:rounded-2xl active:shadow-none '>FINANCE</Button>
+            <Button onClick={()=>{router.push(`/?query=tech`)}}  size={"lg"} className='rounded-2xl border-2 border-dashed border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black  transition-all duration-300 translate-x-[0px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[0px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_white] active:translate-x-[4px] active:translate-y-[4px] active:rounded-2xl active:shadow-none '>TECH</Button>
+            <Button onClick={()=>{router.push(`/?query=robotics`)}}  size={"lg"} className='rounded-2xl border-2 border-dashed border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black  transition-all duration-300 translate-x-[0px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[0px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_white] active:translate-x-[4px] active:translate-y-[4px] active:rounded-2xl active:shadow-none '>ROBOTICS</Button>
+            <Button onClick={()=>{router.push(`/?query=ai`)}}  size={"lg"} className='rounded-2xl border-2 border-dashed border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black  transition-all duration-300 translate-x-[0px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[0px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_white] active:translate-x-[4px] active:translate-y-[4px] active:rounded-2xl active:shadow-none '>AI</Button>
+            <Button onClick={()=>{router.push(`/?query=education`)}}  size={"lg"} className='rounded-2xl border-2 border-dashed border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black  transition-all duration-300 translate-x-[0px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[0px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_white] active:translate-x-[4px] active:translate-y-[4px] active:rounded-2xl active:shadow-none '>EDUCATION</Button>
+            <Button  onClick={()=>{router.push(`/?query=health care`)}} size={"lg"} className='rounded-2xl border-2 border-dashed border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black  transition-all duration-300 translate-x-[0px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[0px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_white] active:translate-x-[4px] active:translate-y-[4px] active:rounded-2xl active:shadow-none '>HEALTH CARE</Button>
+            <Button onClick={()=>{router.push(`/?query=finance`)}}  size={"lg"} className='rounded-2xl border-2 border-dashed border-black bg-black lg:bg-[#fabb20] px-6 py-3 font-semibold uppercase text-white lg:text-black cursor-pointer lg:hover:text-white lg:hover:bg-black  transition-all duration-300 translate-x-[0px] lg:translate-x-[0px] hover:translate-x-[-4px] hover:translate-y-[-4px] translate-y-[0px] lg:translate-y-[0px] hover:rounded-md shadow-[4px_4px_0px_white] lg:shadow-[0px_0px_0px_#fabb20] hover:shadow-[4px_4px_0px_white] active:translate-x-[4px] active:translate-y-[4px] active:rounded-2xl active:shadow-none '>FINANCE</Button>
             
           </div>
 

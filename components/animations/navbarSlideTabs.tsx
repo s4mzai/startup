@@ -4,7 +4,6 @@ import Link from "next/link";
 import React, { useRef, useState, ReactNode } from "react";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-import SignOutButton from "../auth/signOutButton";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 

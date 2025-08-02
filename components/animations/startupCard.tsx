@@ -20,7 +20,8 @@ type StartupCardProps = {
     image?: string | null;
     id?: string | null;
   };
-  isProfile?: boolean
+  isProfile?: boolean;
+  searchQuery?: string; // Add searchQuery prop
 };
 
 const StartupCard: React.FC<StartupCardProps> = ({
@@ -33,11 +34,36 @@ const StartupCard: React.FC<StartupCardProps> = ({
   category,
   user,
   isProfile = false,
+  searchQuery, // Add searchQuery prop
 }) => {
-  const router = useRouter()
+  const router = useRouter();
   const [hovered, setHovered] = useState(false);
 
   const shortDescription = description.length > 70 ? description.slice(0, 70) + "..." : description;
+
+  // Function to highlight matching text
+  const highlightText = (text: string, query?: string) => {
+    if (!query || query.trim() === '') {
+      return <span>{text}</span>;
+    }
+
+    const regex = new RegExp(`(${query.trim()})`, 'gi');
+    const parts = text.split(regex);
+
+    return (
+      <span>
+        {parts.map((part, index) => 
+          regex.test(part) ? (
+            <span key={index} className="bg-yellow-300 font-bold px-1 rounded">
+              {part}
+            </span>
+          ) : (
+            <span key={index}>{part}</span>
+          )
+        )}
+      </span>
+    );
+  };
 
   return (
     <motion.div
@@ -50,7 +76,7 @@ const StartupCard: React.FC<StartupCardProps> = ({
     >
       <motion.div
         initial={{ y: 40, opacity: 0 }}
-        onClick={()=>{router.push(`/startups/${id}`)}}
+        onClick={() => { router.push(`/startups/${id}`) }}
         whileInView={{
           y: 0,
           opacity: 1,
@@ -65,9 +91,11 @@ const StartupCard: React.FC<StartupCardProps> = ({
         className="w-[320px] h-[420px] sm:w-[300px] sm:h-[400px] rounded-2xl px-5 py-6 flex flex-col cursor-pointer border-2 border-black border-dashed bg-[#fabb20] shadow-[4px_8px_8px_rgba(0,0,0,0.38)]"
       >
         {/* Author - Mobile always visible, desktop on hover */}
-        {!isProfile &&(
+        {!isProfile && (
           <div className="items-center justify-between mb-4 flex md:hidden">
-            <div className="font-bold text-black text-lg">{user?.name}</div>
+            <div className="font-bold text-black text-lg">
+              {highlightText(user?.name || '', searchQuery)}
+            </div>
             {user?.image && (
               <div className="w-9 h-9 rounded-full overflow-hidden">
                 <Image
@@ -82,7 +110,7 @@ const StartupCard: React.FC<StartupCardProps> = ({
           </div>
         )}
 
-        {!isProfile &&(
+        {!isProfile && (
           <motion.div
             initial={false}
             animate={{
@@ -93,7 +121,7 @@ const StartupCard: React.FC<StartupCardProps> = ({
             className="hidden md:flex items-center justify-between mb-4"
           >
             <div className="font-bold text-black text-lg hidden xl:flex">
-              {user?.name}
+              {highlightText(user?.name || '', searchQuery)}
             </div>
             {user?.image && (
               <div className="w-9 h-9 rounded-full overflow-hidden">
@@ -107,7 +135,7 @@ const StartupCard: React.FC<StartupCardProps> = ({
               </div>
             )}
           </motion.div>
-        )}  
+        )}
 
         {/* Image */}
         <div className="flex justify-center mb-3">
@@ -120,14 +148,14 @@ const StartupCard: React.FC<StartupCardProps> = ({
           />
         </div>
 
-        {/* Title */}
+        {/* Title with highlighting */}
         <h2 className="text-xl font-bold text-black mb-2 break-words">
-          {title}
+          {highlightText(title, searchQuery)}
         </h2>
 
-        {/* Description */}
+        {/* Description with highlighting */}
         <p className="text-sm text-muted-foreground mb-2 break-words leading-snug">
-          {shortDescription}
+          {highlightText(shortDescription, searchQuery)}
         </p>
 
         {/* Footer */}
@@ -142,9 +170,9 @@ const StartupCard: React.FC<StartupCardProps> = ({
           <div>{views} views</div>
         </div>
 
-        {/* Category */}
+        {/* Category with highlighting */}
         <div className="h-6 mt-3 flex pl-3 justify-center items-center text-sm text-muted-foreground xl:hidden">
-          <div>{category}</div>
+          <div>{highlightText(category, searchQuery)}</div>
         </div>
 
         <motion.div
@@ -156,7 +184,7 @@ const StartupCard: React.FC<StartupCardProps> = ({
           transition={{ duration: 0.3 }}
           className="h-6 justify-center items-center text-sm text-muted-foreground hidden xl:flex"
         >
-          <div>{category}</div>
+          <div>{highlightText(category, searchQuery)}</div>
         </motion.div>
       </motion.div>
     </motion.div>

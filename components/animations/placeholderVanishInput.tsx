@@ -4,6 +4,7 @@
 
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 export function PlaceholdersAndVanishInput({
@@ -23,6 +24,9 @@ export function PlaceholdersAndVanishInput({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const newDataRef = useRef<any[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const startAnimation = () => {
     intervalRef.current = setInterval(() => {
@@ -48,6 +52,14 @@ export function PlaceholdersAndVanishInput({
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [placeholders]);
+
+  // Sync with URL query parameter
+  useEffect(() => {
+    const queryParam = searchParams.get('query');
+    if (queryParam && queryParam !== value) {
+      setValue(queryParam);
+    }
+  }, [searchParams]);
 
   const draw = useCallback(() => {
     if (!inputRef.current) return;
@@ -153,7 +165,7 @@ export function PlaceholdersAndVanishInput({
     animateFrame(start);
   };
 
-  const vanishAndSubmit = () => {
+  const vanishAndClear = () => {
     setAnimating(true);
     draw();
     const maxX = newDataRef.current.reduce(
@@ -163,16 +175,65 @@ export function PlaceholdersAndVanishInput({
     animate(maxX);
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!animating) {
+      // Remove leading spaces automatically
+      const cleanValue = e.target.value.replace(/^\s+/, '');
+      setValue(cleanValue);
+      
+      // Create a new event with the cleaned value for the onChange callback
+      const cleanedEvent = {
+        ...e,
+        target: {
+          ...e.target,
+          value: cleanValue
+        }
+      };
+      onChange && onChange(cleanedEvent as React.ChangeEvent<HTMLInputElement>);
+    }
+  };
+
+  const updateURL = (searchValue: string) => {
+    const current = new URLSearchParams(Array.from(searchParams.entries()));
+    
+    // Check if value is empty or only whitespace
+    if (searchValue && searchValue.trim()) {
+      current.set('query', searchValue.trim());
+    } else {
+      current.delete('query');
+    }
+    
+    const search = current.toString();
+    const query = search ? `?${search}` : '';
+    
+    router.replace(`${window.location.pathname}${query}`, { scroll: false });
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    vanishAndSubmit();
+    // Update URL when form is submitted (clears URL if empty)
+    updateURL(value);
+    // Call the original onSubmit
     onSubmit && onSubmit(e);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !animating) {
-      vanishAndSubmit();
+      // Update URL when Enter is pressed (clears URL if empty)
+      updateURL(value);
+      // Submit the form
+      const form = e.currentTarget.form;
+      if (form) {
+        form.requestSubmit();
+      }
     }
+  };
+
+  const handleClearClick = () => {
+    // Trigger the vanish animation when cross button is clicked
+    vanishAndClear();
+    // Also clear the URL immediately
+    updateURL('');
   };
 
   return (
@@ -192,12 +253,7 @@ export function PlaceholdersAndVanishInput({
       />
 
       <input
-        onChange={(e) => {
-          if (!animating) {
-            setValue(e.target.value);
-            onChange && onChange(e);
-          }
-        }}
+        onChange={handleInputChange}
         onKeyDown={handleKeyDown}
         ref={inputRef}
         value={value}
@@ -211,10 +267,7 @@ export function PlaceholdersAndVanishInput({
       {value && (
         <button
           type="button"
-          onClick={() => {
-            setValue("");
-            setAnimating(false);
-          }}
+          onClick={handleClearClick}
           className="absolute right-12 top-1/2 z-30 -translate-y-1/2 h-8 w-8 rounded-full bg-gray-200 hover:bg-gray-300 transition duration-200 flex items-center justify-center"
         >
           <svg
