@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import StartupCard from '@/components/animations/StartupCard';
+import StartupCard from '../animations/StartupCard';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
