@@ -42,7 +42,7 @@ const HeroSection = () => {
           </motion.h1>
         </div>
         <p className="font-bold text-center px-5 hidden sm:block">
-          Join thousands of entrepreneurs who've turned their vision into reality. 
+          Join thousands of entrepreneurs who&apos;ve turned their vision into reality. 
           Pitch your startup, connect with investors, and build the future.
         </p>
         <p className="font-bold text-center px-5 block sm:hidden">

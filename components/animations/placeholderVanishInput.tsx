@@ -1,4 +1,4 @@
-// "This is the homepage input startup input"
+
 
 "use client";
 
@@ -22,49 +22,48 @@ export function PlaceholdersAndVanishInput({
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const newDataRef = useRef<any[]>([]);
+  const newDataRef = useRef<
+    { x: number; y: number; r: number; color: string }[]
+  >([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const startAnimation = () => {
+  const startAnimation = useCallback(() => {
     intervalRef.current = setInterval(() => {
       setCurrentPlaceholder((prev) => (prev + 1) % placeholders.length);
     }, 3000);
-  };
+  }, [placeholders.length]);
 
-  const handleVisibilityChange = () => {
+  const handleVisibilityChange = useCallback(() => {
     if (document.visibilityState !== "visible" && intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     } else if (document.visibilityState === "visible") {
       startAnimation();
     }
-  };
+  }, [startAnimation]);
 
   useEffect(() => {
     startAnimation();
     document.addEventListener("visibilitychange", handleVisibilityChange);
-
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [placeholders]);
+  }, [handleVisibilityChange, startAnimation]);
 
-  // Sync with URL query parameter
   useEffect(() => {
-    const queryParam = searchParams.get('query');
+    const queryParam = searchParams.get("query");
     if (queryParam && queryParam !== value) {
       setValue(queryParam);
     }
-  }, [searchParams]);
+  }, [searchParams, value]);
 
   const draw = useCallback(() => {
-    if (!inputRef.current) return;
+    if (!inputRef.current || !canvasRef.current) return;
     const canvas = canvasRef.current;
-    if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -80,12 +79,12 @@ export function PlaceholdersAndVanishInput({
 
     const imageData = ctx.getImageData(0, 0, 800, 800);
     const pixelData = imageData.data;
-    const newData: any[] = [];
+    const newData: typeof newDataRef.current = [];
 
     for (let t = 0; t < 800; t++) {
-      let i = 4 * t * 800;
+      const i = 4 * t * 800;
       for (let n = 0; n < 800; n++) {
-        let e = i + 4 * n;
+        const e = i + 4 * n;
         if (
           pixelData[e] !== 0 &&
           pixelData[e + 1] !== 0 &&
@@ -94,23 +93,14 @@ export function PlaceholdersAndVanishInput({
           newData.push({
             x: n,
             y: t,
-            color: [
-              pixelData[e],
-              pixelData[e + 1],
-              pixelData[e + 2],
-              pixelData[e + 3],
-            ],
+            color: `rgba(${pixelData[e]}, ${pixelData[e + 1]}, ${pixelData[e + 2]}, ${pixelData[e + 3]})`,
+            r: 1,
           });
         }
       }
     }
 
-    newDataRef.current = newData.map(({ x, y, color }) => ({
-      x,
-      y,
-      r: 1,
-      color: `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3]})`,
-    }));
+    newDataRef.current = newData;
   }, [value]);
 
   useEffect(() => {
@@ -120,9 +110,9 @@ export function PlaceholdersAndVanishInput({
   const animate = (start: number) => {
     const animateFrame = (pos: number = 0) => {
       requestAnimationFrame(() => {
-        const newArr = [];
-        for (let i = 0; i < newDataRef.current.length; i++) {
-          const current = newDataRef.current[i];
+        const newArr: typeof newDataRef.current = [];
+
+        for (const current of newDataRef.current) {
           if (current.x < pos) {
             newArr.push(current);
           } else {
@@ -141,16 +131,15 @@ export function PlaceholdersAndVanishInput({
         const ctx = canvasRef.current?.getContext("2d");
         if (ctx) {
           ctx.clearRect(pos, 0, 800, 800);
-          newDataRef.current.forEach((t) => {
-            const { x: n, y: i, r: s, color } = t;
-            if (n > pos) {
+          for (const t of newDataRef.current) {
+            if (t.x > pos) {
               ctx.beginPath();
-              ctx.rect(n, i, s, s);
-              ctx.fillStyle = color;
-              ctx.strokeStyle = color;
+              ctx.rect(t.x, t.y, t.r, t.r);
+              ctx.fillStyle = t.color;
+              ctx.strokeStyle = t.color;
               ctx.stroke();
             }
-          });
+          }
         }
 
         if (newDataRef.current.length > 0) {
@@ -177,63 +166,49 @@ export function PlaceholdersAndVanishInput({
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!animating) {
-      // Remove leading spaces automatically
-      const cleanValue = e.target.value.replace(/^\s+/, '');
+      const cleanValue = e.target.value.replace(/^\s+/, "");
       setValue(cleanValue);
-      
-      // Create a new event with the cleaned value for the onChange callback
+
       const cleanedEvent = {
         ...e,
         target: {
           ...e.target,
-          value: cleanValue
-        }
+          value: cleanValue,
+        },
       };
-      onChange && onChange(cleanedEvent as React.ChangeEvent<HTMLInputElement>);
+      onChange?.(cleanedEvent as React.ChangeEvent<HTMLInputElement>);
     }
   };
 
   const updateURL = (searchValue: string) => {
     const current = new URLSearchParams(Array.from(searchParams.entries()));
-    
-    // Check if value is empty or only whitespace
     if (searchValue && searchValue.trim()) {
-      current.set('query', searchValue.trim());
+      current.set("query", searchValue.trim());
     } else {
-      current.delete('query');
+      current.delete("query");
     }
-    
+
     const search = current.toString();
-    const query = search ? `?${search}` : '';
-    
+    const query = search ? `?${search}` : "";
     router.replace(`${window.location.pathname}${query}`, { scroll: false });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Update URL when form is submitted (clears URL if empty)
     updateURL(value);
-    // Call the original onSubmit
-    onSubmit && onSubmit(e);
+    onSubmit?.(e);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && !animating) {
-      // Update URL when Enter is pressed (clears URL if empty)
       updateURL(value);
-      // Submit the form
-      const form = e.currentTarget.form;
-      if (form) {
-        form.requestSubmit();
-      }
+      e.currentTarget.form?.requestSubmit();
     }
   };
 
   const handleClearClick = () => {
-    // Trigger the vanish animation when cross button is clicked
     vanishAndClear();
-    // Also clear the URL immediately
-    updateURL('');
+    updateURL("");
   };
 
   return (

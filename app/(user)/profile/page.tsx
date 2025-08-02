@@ -4,7 +4,6 @@ import StartupSection from '@/components/landingpage/startupSection'
 import UserProfileCard from '@/components/UserProfileCard'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
-import { dimensionValueTypes } from 'framer-motion'
 import { redirect } from 'next/navigation'
 import React from 'react'
 

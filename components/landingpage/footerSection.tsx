@@ -1,6 +1,5 @@
 import React from 'react'
 import { FaXTwitter } from "react-icons/fa6";
-import { TiSocialLinkedin } from "react-icons/ti";
 import { FaGithub } from "react-icons/fa";
 import { IoMdCall } from "react-icons/io";
 import { CiMail } from "react-icons/ci";

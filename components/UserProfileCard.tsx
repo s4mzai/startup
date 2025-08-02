@@ -14,7 +14,6 @@ interface UserProfileCardProps {
 }
 
 const UserProfileCard: React.FC<UserProfileCardProps> = ({
-  id,
   image,
   name,
   username,

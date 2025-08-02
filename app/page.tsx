@@ -1,15 +1,17 @@
 import FooterSection from "@/components/landingpage/footerSection";
 import HeroSection from "@/components/landingpage/heroSection";
 import StartupSection from "@/components/landingpage/startupSection";
-import ScrollToStartup from "@/components/landingpage/ScrollToStartup"; // ⬅️ this
+import ScrollToStartup from "@/components/landingpage/ScrollToStartup";
 
 interface HomeProps {
-  searchParams: {
+  searchParams: Promise<{
     query?: string;
-  };
+  }>;
 }
 
-export default function Home({ searchParams }: HomeProps) {
+export default async function Home({ searchParams }: HomeProps) {
+  const { query } = await searchParams;
+
   return (
     <>
       <ScrollToStartup />
@@ -19,7 +21,7 @@ export default function Home({ searchParams }: HomeProps) {
       </div>
 
       <div id="startupsection">
-        <StartupSection searchQuery={searchParams.query} />
+        <StartupSection searchQuery={query} />
       </div>
 
       <div id="footersection">
