@@ -35,7 +35,7 @@ const UpdateUserInfoForm: React.FC<UpdateUserInfoFormProps> = ({
     resolver: zodResolver(userUpdateSchema),
     defaultValues: {
       name: defaultName || "",
-      username: "@"+defaultUsername || "Username not available! Kindly set your username to not have any complications in future",
+      username: defaultUsername || "Username not available! Kindly set your username to not have any complications in future",
       bio: defaultBio || "Bio not available!",
       image: defaultImage || "",
     },

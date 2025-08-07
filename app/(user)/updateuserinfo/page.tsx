@@ -14,10 +14,10 @@ const UpdateUserInfo = async() => {
         {/* LOWER CONTAINER HERE */}
         <div className='w-full'>
             <UpdateUserInfoForm
-              defaultName={user?.name || null} 
-              defaultUsername={user?.username || null}
-              defaultBio={user?.bio || null}
-              defaultImage={user?.image || null} 
+              defaultName={user?.name || ""} 
+              defaultUsername={user?.username || ""}
+              defaultBio={user?.bio || ""}
+              defaultImage={user?.image || ""} 
             />
         </div>
     </div>

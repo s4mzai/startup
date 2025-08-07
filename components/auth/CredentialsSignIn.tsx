@@ -25,8 +25,8 @@ export default function CredentialsSignIn() {
     <form action={handleSubmit} 
       className="px-3 w-full rounded-xl flex flex-col text-center items-center gap-3 text-black"
     >
-      <div className="w-full">
-        <label htmlFor="email" className="flex gap-2 items-center">
+      <div className="w-full flex flex-col gap-2">
+        <label htmlFor="email" className="flex items-center">
           Email
         </label>
         <input
@@ -34,13 +34,23 @@ export default function CredentialsSignIn() {
           name="email"
           type="email"
           required
-          className="outline-none w-full bg-white text-black rounded-lg border-2 border-black p-3 px-6"
+          className="resize-none w-full bg-white h-12 p-5 px-6 py-3 font-semibold  
+          lg:bg-white lg:text-black lg:hover:bg-[#fafbea] rounded-xl
+          transition-all duration-300
+          translate-y-[-4px] lg:translate-y-[0px] hover:translate-y-[-4px]
+          hover:rounded-md shadow-[4px_4px_0px_black] lg:shadow-[0px_0px_0px_black] 
+          hover:shadow-[6px_6px_0px_black] active:translate-y-[0px]
+          active:rounded-2xl active:shadow-none
+
+          border-none focus:border-none focus:outline-none focus:ring-0 
+          focus-visible:ring-0 ring-0 outline-none
+          "
           placeholder="john.doe@example.com"
         />
       </div>
       
-      <div className="w-full">
-        <label htmlFor="password" className="flex gap-2 items-center">
+      <div className="w-full flex flex-col gap-2">
+        <label htmlFor="password" className="flex items-center">
           Password
         </label>
         <input
@@ -48,7 +58,17 @@ export default function CredentialsSignIn() {
           name="password"
           type="password"
           required
-          className="outline-none w-full bg-white text-black rounded-lg border-2 border-black p-3 px-6"
+          className="resize-none w-full bg-white h-12 p-5 px-6 py-3 font-semibold  
+          lg:bg-white lg:text-black lg:hover:bg-[#fafbea] rounded-xl
+          transition-all duration-300
+          translate-y-[-4px] lg:translate-y-[0px] hover:translate-y-[-4px]
+          hover:rounded-md shadow-[4px_4px_0px_black] lg:shadow-[0px_0px_0px_black] 
+          hover:shadow-[6px_6px_0px_black] active:translate-y-[0px]
+          active:rounded-2xl active:shadow-none
+
+          border-none focus:border-none focus:outline-none focus:ring-0 
+          focus-visible:ring-0 ring-0 outline-none
+          "
           placeholder="********"
         />
       </div>
@@ -56,7 +76,17 @@ export default function CredentialsSignIn() {
       <button
         type="submit"
         disabled={isPending}
-          className="mt-4 rounded-lg border-2 border-black p-3 px-6 cursor-pointer w-full bg-white text-black hover:bg-gray-200 disabled:opacity-50"
+          className="resize-none w-full bg-white h-12 p-5 px-6 py-3 font-semibold  
+          lg:bg-white lg:text-black lg:hover:bg-[#fafbea] rounded-xl
+          transition-all duration-300
+          translate-y-[-4px] lg:translate-y-[0px] hover:translate-y-[-4px]
+          hover:rounded-md shadow-[4px_4px_0px_black] lg:shadow-[0px_0px_0px_black] 
+          hover:shadow-[6px_6px_0px_black] active:translate-y-[0px]
+          active:rounded-2xl active:shadow-none
+
+          border-none focus:border-none focus:outline-none focus:ring-0 
+          focus-visible:ring-0 ring-0 outline-none
+          "
       >
         {isPending ? "Signing in..." : "Sign In"}
       </button>

@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
@@ -54,12 +52,14 @@ export function PlaceholdersAndVanishInput({
     };
   }, [handleVisibilityChange, startAnimation]);
 
+  // ✅ Only set initial input value from URL once
   useEffect(() => {
     const queryParam = searchParams.get("query");
-    if (queryParam && queryParam !== value) {
+    if (queryParam) {
       setValue(queryParam);
     }
-  }, [searchParams, value]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const draw = useCallback(() => {
     if (!inputRef.current || !canvasRef.current) return;

@@ -6,11 +6,17 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion"
 import SearchForm from "../SearchForm";
 import { useRouter } from "next/navigation";
+import { Caprasimo } from 'next/font/google'
 
-
+const caprasimo = Caprasimo({
+  subsets: ['latin'],
+  weight: ["400"], 
+  display: 'swap', 
+})
 
 const HeroSection = () => {
   const router = useRouter()
+  
   return (
     <>
       <div className="h-[43rem] w-full flex flex-col items-center justify-between pt-40 pb-15 bg-[#fabb20]">
@@ -18,7 +24,7 @@ const HeroSection = () => {
         <p className="text-sm mt-5 md:mt-0 active:bg-amber-100 md:active:bg-none md:hover:bg-amber-100 text-amber-800 bg-amber-300 rounded-lg px-2 cursor-default">
           🚀 Launch Your Dream Startup
         </p>
-        <div className="flex flex-col md:flex-row w-ful items-center justify-center font-extrabold leading-tight mx-10 gap-3 md:gap-10">
+        <div className="flex flex-col lg:flex-row items-center justify-center font-extrabold leading-tight px-10 gap-3 md:gap-10">
           <AnimatedText text="founders" uppercase className=" text-6xl sm:text-8xl"/>
           
           {/* <SplitText /> */}
@@ -38,7 +44,7 @@ const HeroSection = () => {
             },
           }}
           viewport={{ once: true, amount: 0.7 }}
-          className="text-wrap sm:w-90 text-center  text-4xl sm:text-5xl font-lg uppercase ">Launch Your Next Big <span className="underline">Idea</span>
+          className={`text-wrap sm:w-100 text-center  text-4xl sm:text-5xl font-lg uppercase ${caprasimo.className} `}>Launch Your Next Big <span className="underline">Idea</span>
           </motion.h1>
         </div>
         <p className="font-bold text-center px-5 hidden sm:block">
