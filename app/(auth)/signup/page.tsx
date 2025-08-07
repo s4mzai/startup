@@ -1,4 +1,3 @@
-import AnimatedText from '@/components/animations/fillText'
 import CredentialsSignUp from '@/components/auth/CredentialsSignUp'
 import GithubSigninButton from '@/components/auth/githubSigninButton'
 import GoogleSigninButton from '@/components/auth/googleSigninButton'
